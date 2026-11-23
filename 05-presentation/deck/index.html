@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réseau LTE Zaghouan</title>
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<div class="viewport"><div class="stage" id="stage">
+
+<header class="top">
+  <div class="brand"><svg viewBox="0 0 34 20" aria-hidden="true"><path d="M1 1.5H33M2 19V10A4.5 4.5 0 0 1 11 10V19M12.5 19V10A4.5 4.5 0 0 1 21.5 10V19M23 19V10A4.5 4.5 0 0 1 32 10V19" fill="none" stroke="#2e5b3c" stroke-width="1.6"/></svg>Réseau LTE <em>Zaghouan</em></div>
+  <nav class="sections" id="sections" aria-label="Sections"></nav>
+</header>
+<footer class="bottom">
+  <span class="names">Youssef Hamdani · Rayen Hamza</span>
+  <span class="course">Planification et optimisation des réseaux · Dr Mériem Afif · RT5 INSAT 2026–2027</span>
+  <span class="req" id="req"></span>
+  <span class="steps" id="steps"></span>
+  <span class="num" id="num"></span>
+</footer>
+
+<!-- =================================================================== 1. CAHIER DES CHARGES -->
+
+<section class="slide title" id="s-title" data-section="Cahier des charges" data-req="">
+  <div class="three" data-opts='{"sites":"final","newSites":["R11","R12"],"radius":160,"angle":2.55,"intro":true}'></div>
+  <div class="fade-l"></div>
+  <div class="content">
+    <h1 data-a style="--i:0">Planifier un réseau 4G<br><em>au pied d'un massif</em></h1>
+    <p class="lead" data-a style="--i:1">Du dimensionnement analytique à l'optimisation sous Atoll, sur 100 km² de relief réel.</p>
+    <div class="facts" data-a style="--i:2"><span>Zaghouan · 10 × 10 km</span><span>LTE bande 3 · 1 800 MHz</span><span>21 sites</span></div>
+    <svg class="arcade" data-a style="--i:3" viewBox="0 0 640 46" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><path d="M0 1.5 H640 M0 7 H640 M0 46 V24 A19 19 0 0 1 38 24 V46 M46 46 V24 A19 19 0 0 1 84 24 V46 M92 46 V24 A19 19 0 0 1 130 24 V46 M138 46 V24 A19 19 0 0 1 176 24 V46 M184 46 V24 A19 19 0 0 1 222 24 V46 M230 46 V24 A19 19 0 0 1 268 24 V46 M276 46 V24 A19 19 0 0 1 314 24 V46 M322 46 V24 A19 19 0 0 1 360 24 V46 M368 46 V24 A19 19 0 0 1 406 24 V46 M414 46 V24 A19 19 0 0 1 452 24 V46 M460 46 V24 A19 19 0 0 1 498 24 V46 M506 46 V24 A19 19 0 0 1 544 24 V46 M552 46 V24 A19 19 0 0 1 590 24 V46 M598 46 V24 A19 19 0 0 1 636 24 V46 " fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+    <div class="who" data-a style="--i:4">
+      <div><span>Binôme</span>Youssef Hamdani · Rayen Hamza</div>
+      <div><span>Encadrante</span>Dr Mériem Afif</div>
+      <div><span>Module</span>Planification et optimisation des réseaux</div>
+      <div><span>Formation</span>RT5 · INSAT · 2026–2027</div>
+    </div>
+  </div>
+  <div class="hint3d" data-a style="--i:5">Relief Copernicus · image Sentinel-2 cloudless 2021 (EOX, CC BY 4.0) · glisser pour tourner, molette pour zoomer</div>
+  <aside class="notes"><b>Ouverture.</b> Le relief en 3D est le vrai modèle numérique de terrain (Copernicus, 25 m), exagéré ×2,2&nbsp;; chaque petit arbre est posé sur un vrai pixel « forêt » de la carte ESA WorldCover&nbsp;: le Djebel Zaghouan est un parc national boisé. Les 21 points sont les sites du <b>réseau final</b>&nbsp;: bleu = urbains, terre cuite = ruraux, or = les 2 sites ajoutés pendant l'optimisation. La frise d'arches rappelle l'aqueduc romain de Zaghouan. Phrase d'accroche&nbsp;: « Nous avons joué le rôle d'un ingénieur planification&nbsp;: dimensionner, construire dans Atoll, mesurer, puis optimiser. »</aside>
+</section>
+
+<section class="slide" id="s-mission" data-section="Cahier des charges" data-req="P-1">
+  <h2 data-a style="--i:0">Une seule chaîne, du calcul à la mesure</h2>
+  <p class="lead" data-a style="--i:1">Même zone, même bande, même modèle de propagation et mêmes hypothèses de trafic, de la première formule à la dernière carte.</p>
+  <div class="chain">
+    <div class="rail"><i></i></div>
+    <button class="st" data-step="1" data-mini="zone" data-sec="Cahier des charges"><div class="viz"></div><div class="knot"></div><h3>Cahier des charges</h3><p>Zone, norme, objectifs de couverture et de débit, hypothèses sourcées.</p><div class="tag">E1-1 … E1-5</div><div class="go">Aller à la section</div></button>
+    <button class="st" data-step="2" data-mini="budget" data-sec="Dimensionnement"><div class="viz"></div><div class="knot"></div><h3>Dimensionnement</h3><p>Bilan de liaison, rayon, sites par couverture et par capacité, réutilisation.</p><div class="tag">E1-6 … E1-8 · R · U</div><div class="go">Aller à la section</div></button>
+    <button class="st" data-step="3" data-mini="sites" data-sec="Atoll"><div class="viz"></div><div class="knot"></div><h3>Réseau Atoll</h3><p>Cartes réelles, Cost-Hata avec diffraction, les 20 sites de l'Étape 1.</p><div class="tag">A-1 … A-4</div><div class="go">Aller à la section</div></button>
+    <button class="st" data-step="4" data-mini="curves" data-sec="Prédictions"><div class="viz"></div><div class="knot"></div><h3>Prédictions et Monte-Carlo</h3><p>Signal, émetteur, recouvrement, C/(I+N), débits, puis 10, 100 et 1 000 utilisateurs.</p><div class="tag">L-1 … L-11</div><div class="go">Aller à la section</div></button>
+    <button class="st" data-step="5" data-mini="progress" data-sec="Optimisation"><div class="viz"></div><div class="knot"></div><h3>Optimisation</h3><p>Une action à la fois, mesurée avant et après, gardée ou rejetée.</p><div class="tag">L-12 · A-8</div><div class="go">Aller à la section</div></button>
+  </div>
+  <aside class="notes">Appuyer sur → pour faire apparaître les étapes une à une. Chaque vignette est dessinée avec nos vraies données (zone, bilan, sites, courbes DCFI, progression). On peut cliquer sur une étape pour sauter à sa section. Le fil rouge&nbsp;: <b>la cohérence</b>. Le réseau construit dans Atoll est exactement celui calculé à l'Étape 1 (mêmes sites, même rayon, même modèle Hata). C'est ce qui rend la comparaison finale Étape 1 / Étape 2 possible. Chaque diapo porte en bas les identifiants des exigences du sujet qu'elle couvre.</aside>
+</section>
+
+<section class="slide" id="s-zone" data-section="Cahier des charges" data-req="E1-4 E1-5" data-steps="3">
+  <div class="row">
+    <div class="map" style="--size:680px" data-sites="none" data-zones="1" data-zone-steps="1" data-a></div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Une ville, un massif, une campagne</h2>
+      <p class="lead" data-a style="--i:1">10 × 10 km autour de Zaghouan · UTM 32N <span style="white-space:nowrap">X 596–606 km</span> · <span style="white-space:nowrap">Y 4 022–4 032 km</span></p>
+      <table class="t mt">
+        <thead><tr><th>Zone</th><th class="r">Surface</th><th class="r">Habitants</th><th>Stratégie</th></tr></thead>
+        <tbody>
+          <tr style="--r:0" data-hover="urban"><td><b>Centre urbain</b><div class="small">densité ≥ 1 000 hab/km²</div></td><td class="r">8,57 km²</td><td class="r">13 590</td><td>capacité, indoor</td></tr>
+          <tr style="--r:1" data-hover="rural"><td><b>Rural</b></td><td class="r">76,95 km²</td><td class="r">11 476</td><td>couverture, outdoor</td></tr>
+          <tr style="--r:2" data-hover="massif"><td><b>Massif</b><div class="small">≥ 600 m, parc national</div></td><td class="r">14,48 km²</td><td class="r">292</td><td>aucun site, aucun objectif</td></tr>
+          <tr style="--r:3"><td><b>Total</b></td><td class="r">100 km²</td><td class="r"><b>25 359</b></td><td></td></tr>
+        </tbody>
+      </table>
+      <div class="legend mt" data-a style="--i:5">
+        <span><i style="background:#4f7a45"></i>forêt <b data-lc="Forêt"></b></span><span><i style="background:#8ea36a"></i>arbustes <b data-lc="Arbustes"></b></span>
+        <span><i style="background:#c9cb9c"></i>prairies <b data-lc="Prairies"></b></span><span><i style="background:#ddd6a8"></i>cultures <b data-lc="Cultures"></b></span>
+        <span><i style="background:#cbb9a0"></i>bâti <b data-lc="Bâti"></b></span>
+      </div>
+      <p class="small mt-s" data-a style="--i:6">Couleurs&nbsp;: occupation du sol réelle (ESA WorldCover 10 m) sur le relief ombré (Copernicus 25 m). Tirets&nbsp;: centre urbain · trait vert&nbsp;: courbe 600 m.</p>
+    </div>
+  </div>
+  <aside class="notes">→ allume successivement la ville, le massif, puis la campagne (on peut aussi survoler les lignes du tableau). Pourquoi Zaghouan&nbsp;: un <b>centre urbain</b> (dimensionnement par la capacité, §3.3) et une <b>périphérie rurale</b> (dimensionnement par la couverture, §3.2), donc les deux parties du sujet. Le <b>Djebel Zaghouan</b>, boisé à 27,5 % de la zone, crée de vraies ombres radio&nbsp;: c'est lui qui rend l'optimisation intéressante. Contrainte&nbsp;: pas de site dans le parc national. Données&nbsp;: WorldPop 2020 (population), ESA WorldCover (occupation du sol), Copernicus GLO-30 (relief).</aside>
+</section>
+
+<section class="slide" id="s-norme" data-section="Cahier des charges" data-req="E1-1 E1-3">
+  <h2 data-a style="--i:0">LTE bande 3 et des objectifs <em>mesurables</em></h2>
+  <div class="spec mt" data-a style="--i:1"><svg class="chart" data-spectrum="1"></svg></div>
+  <div class="row mt">
+    <div class="grow">
+      <h3 data-a style="--i:1">Norme retenue</h3>
+      <table class="t mt-s">
+        <tbody>
+          <tr style="--r:0"><td>Bande</td><td class="r">B3 FDD · DL 1 815 / UL 1 720 MHz</td></tr>
+          <tr style="--r:1"><td>Largeur de canal</td><td class="r">20 MHz · 100 RB</td></tr>
+          <tr style="--r:2"><td>Puissance eNB</td><td class="r">46 dBm · RS EPRE 15,4 dBm (Atoll)</td></tr>
+          <tr style="--r:3"><td>Terminal</td><td class="r">23 dBm · MIMO 2×2</td></tr>
+          <tr style="--r:4"><td>Antenne</td><td class="r">tri-secteur 65° · 18 dBi · 30 m</td></tr>
+          <tr style="--r:5"><td>Réutilisation</td><td class="r">K = 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grow">
+      <h3 data-a style="--i:2">Objectifs du cahier des charges</h3>
+      <table class="t mt-s">
+        <tbody>
+          <tr style="--r:0"><td>Couverture centre urbain</td><td class="r"><b>≥ 95 %</b> de la surface, <b>indoor</b></td></tr>
+          <tr style="--r:1"><td>Couverture rurale</td><td class="r"><b>≥ 95 %</b> de la surface, outdoor</td></tr>
+          <tr style="--r:2"><td>Débit en bord de cellule</td><td class="r"><b>1 024 kbps</b> DL · <b>128 kbps</b> UL</td></tr>
+          <tr style="--r:3"><td>Probabilité de couverture</td><td class="r">95 % de la surface (Jakes)</td></tr>
+          <tr style="--r:4"><td>Charge maximale d'une cellule</td><td class="r">80 % à l'heure chargée</td></tr>
+          <tr style="--r:5"><td>Trafic</td><td class="r">9,5 Go/abonné/mois · part 30 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <aside class="notes">Pourquoi le <b>LTE</b>&nbsp;: le sujet demande des cartes de débit DL/UL et des simulations Monte-Carlo&nbsp;; dans Atoll 3.3 elles existent pour l'UMTS, le WiMAX et le LTE, pas pour le GSM. Le débit visé en bord de cellule correspond exactement au service « High Speed Internet » d'Atoll, donc on peut le vérifier sur les cartes. <b>RS EPRE</b>&nbsp;: 46 dBm répartis sur 1 200 sous-porteuses donnent 15,2 dBm&nbsp;; Atoll affiche 15,4 dBm, ce qui confirme notre réglage. Trafic&nbsp;: chiffres INTT TR4-2025 (9,5 Go/mois, pénétration 93,9 %).</aside>
+</section>
+
+<section class="slide" id="s-band" data-section="Cahier des charges" data-req="E1-1 E1-5">
+  <h2 data-a style="--i:0">Pourquoi 1 800 MHz plutôt que 800 MHz</h2>
+  <p class="lead" data-a style="--i:1">Le 800 MHz porte plus loin, mais n'a que 10 MHz&nbsp;: la ville sature dès que le trafic grandit.</p>
+  <div class="row mt-l" style="align-items:flex-end">
+    <div class="grow">
+      <div class="hbar" style="--lab:260px;--val:110px"><div class="lb">800 MHz · aujourd'hui<small>R urbain 1,22 km · capacité&nbsp;: 9 sites</small></div><div class="tr"><b style="--w:50%;--c:#a7bd8c;--i:0"></b></div><div class="vl">12 sites</div></div>
+      <div class="hbar" style="--lab:260px;--val:110px"><div class="lb">800 MHz · dans 5 ans<small>trafic × 2,3</small></div><div class="tr"><b style="--w:100%;--c:#4f7a45;--i:1"></b></div><div class="vl red">24 sites</div></div>
+      <div class="hbar mt" style="--lab:260px;--val:110px"><div class="lb">1 800 MHz · aujourd'hui<small>R urbain 0,64 km · couverture&nbsp;: 21 sites</small></div><div class="tr"><b style="--w:87.5%;--c:#1f6485;--i:2"></b></div><div class="vl">21 sites</div></div>
+      <div class="hbar" style="--lab:260px;--val:110px"><div class="lb">1 800 MHz · dans 5 ans<small>20 MHz absorbent la croissance</small></div><div class="tr"><b style="--w:87.5%;--c:#1f6485;--i:3"></b></div><div class="vl slate">21 sites</div></div>
+    </div>
+    <div style="width:420px;--i:4" class="col" data-a>
+      <div class="stat"><div class="k">Conclusion</div><p>Mêmes marges, mêmes antennes, même puissance par RB. <b>Seule la bande change.</b> Le 800 MHz gagne aujourd'hui, mais le 1 800 MHz garde <b>le même réseau dans 5 ans</b>&nbsp;: nous dimensionnons pour durer.</p></div>
+    </div>
+  </div>
+  <aside class="notes">Calcul de l'Étape 1 (<b>X-1</b>)&nbsp;: Okumura-Hata à 800 MHz et COST-231 Hata à 1 800 MHz, mêmes hypothèses. On ne dit pas que le 800 est « mauvais »&nbsp;: il couvre mieux. Mais avec 10 MHz, le centre est limité par la capacité (9 sites aujourd'hui, 21 dans 5 ans). Avec 20 MHz à 1 800, c'est la couverture qui dimensionne et le réseau absorbe la croissance de 40 % tous les 2 ans observée par l'INTT.</aside>
+</section>
+
+<!-- =================================================================== 2. DIMENSIONNEMENT -->
+
+<section class="slide" id="s-marges" data-section="Dimensionnement" data-req="E1-2 E1-3">
+  <h2 data-a style="--i:0">Les marges&nbsp;: ce que le canal peut nous coûter</h2>
+  <div class="row mt">
+    <div class="col" data-a style="width:790px;--i:1">
+      <div class="row" style="gap:20px;align-items:center"><div class="seg" data-gauss-seg><button data-v="u">Urbain · σ = 8 dB</button><button data-v="r">Rural · σ = 6 dB</button></div><p class="small" data-gauss-out></p></div>
+      <svg class="chart mt-s" data-gauss="1" style="width:100%;height:auto"></svg>
+      <p class="small mt-s">Effet de masque log-normal. On vise 95 % de la <b>surface</b>&nbsp;; le bord est le pire endroit, il suffit donc d'y réussir 86,1 % (urbain) ou 83,5 % (rural) du temps&nbsp;: formule de Jakes, pente de Hata α = 3,52.</p>
+    </div>
+    <div class="grow" style="display:grid;grid-template-columns:1fr 1fr;gap:30px 30px;align-content:start">
+      <div class="stat" data-a style="--i:2"><div class="k">Pénétration indoor, 1 800 MHz</div><div class="fig m">15<span class="u">dB</span></div><div class="d">bâti dense&nbsp;; 10 dB pour les autres classes d'occupation du sol</div></div>
+      <div class="stat" data-a style="--i:3"><div class="k">Interférence UL / DL</div><div class="fig m">2 / 3<span class="u">dB</span></div><div class="d">la charge des cellules voisines (réutilisation 1)</div></div>
+      <div class="stat" data-a style="--i:4"><div class="k">Évanouissement rapide</div><div class="fig m red">0<span class="u">dB</span></div><div class="d">déjà inclus dans les seuils SINR des bearers d'Atoll&nbsp;: 10 dB le compteraient deux fois</div></div>
+      <div class="stat" data-a style="--i:5"><div class="k">Si l'on ajoutait ces 10 dB</div><div class="fig m">× 3,7<span class="u">sites</span></div><div class="d">rayon urbain 0,33 km au lieu de 0,64 km</div></div>
+    </div>
+  </div>
+  <aside class="notes">Basculer Urbain / Rural pour montrer les deux σ. Lecture de la courbe&nbsp;: c'est la distribution du niveau reçu au bord de la cellule&nbsp;; on décale sa moyenne de la <b>marge</b> au-dessus du seuil pour que 86 % des positions passent. <b>Jakes</b>&nbsp;: 95 % de la surface ⇔ 86 % au bord (σ = 8 dB)&nbsp;; la marge vaut ≈ 1,08·σ = 8,7 dB. <b>0 dB d'évanouissement rapide</b>&nbsp;: point à défendre. Les seuils SINR des bearers (−1 dB pour le bearer 4) viennent de simulations au niveau lien qui incluent déjà le fading rapide&nbsp;; le cours propose 10 dB, ce qui diviserait le rayon par deux et multiplierait les sites par 3,7.</aside>
+</section>
+
+<section class="slide" id="s-bilan" data-section="Dimensionnement" data-req="R-1 E1-2">
+  <h2 data-a style="--i:0;max-width:none">Le bilan de liaison fixe le rayon de cellule</h2>
+  <div class="row mt-s" style="gap:40px">
+    <div class="grow tight">
+      <div class="hbar" style="--lab:300px;--val:90px"><div class="lb">Puissance de l'UE<small>classe 3</small></div><div class="tr"><b style="--l:0%;--w:14.4%;--c:#1f6485;--i:0"></b></div><div class="vl">+23,0</div></div>
+      <div class="hbar" style="--lab:300px;--val:90px"><div class="lb">Sensibilité de l'eNB<small>2 RB, SINR −1 dB (bearer 4), NF 5 dB</small></div><div class="tr"><b style="--l:14.4%;--w:71.5%;--c:#1f6485;--i:1"></b></div><div class="vl">+114,4</div></div>
+      <div class="hbar" style="--lab:300px;--val:90px"><div class="lb">Gain antenne − pertes<small>18 dBi − 1 dB</small></div><div class="tr"><b style="--l:85.9%;--w:10.6%;--c:#1f6485;--i:2"></b></div><div class="vl">+17,0</div></div>
+      <div class="hbar" style="--lab:300px;--val:90px"><div class="lb">Marge de masque<small>σ 8 dB, 95 % de la surface</small></div><div class="tr"><b class="neg" style="--l:91.1%;--w:5.4%;--c:#d98b62;--i:3"></b></div><div class="vl red">−8,7</div></div>
+      <div class="hbar" style="--lab:300px;--val:90px"><div class="lb">Marge d'interférence</div><div class="tr"><b class="neg" style="--l:89.8%;--w:1.3%;--c:#d98b62;--i:4"></b></div><div class="vl red">−2,0</div></div>
+      <div class="hbar" style="--lab:300px;--val:90px"><div class="lb">Pénétration indoor</div><div class="tr"><b class="neg" style="--l:80.5%;--w:9.4%;--c:#d98b62;--i:5"></b></div><div class="vl red">−15,0</div></div>
+      <div class="hbar mt-s" style="--lab:300px;--val:90px"><div class="lb"><b>Affaiblissement maximal (MAPL)</b><small>liaison montante, urbain indoor</small></div><div class="tr"><b style="--l:0;--w:80.5%;--c:#b8431f;--i:6"></b></div><div class="vl"><b>128,8 dB</b></div></div>
+    </div>
+    <div style="width:470px;flex:none" class="col">
+      <div class="fx" data-a style="--i:7">
+        <div class="src">Référence · COST-231 Hata (1 500 – 2 000 MHz, ville moyenne)</div>
+        <div class="eq sm"><span class="ln">L = 46,3 + 33,9 log <span class="t" data-t="f" style="--c:#1f6485"><i>f</i></span> − 13,82 log <span class="t" data-t="hb" style="--c:#c4922a"><i>h</i><sub>b</sub></span> − a(<span class="t" data-t="hm" style="--c:#8a7556"><i>h</i><sub>m</sub></span>)</span><span class="ln">+ (44,9 − 6,55 log <span class="t" data-t="hb" style="--c:#c4922a"><i>h</i><sub>b</sub></span>) log <span class="t" data-t="d" style="--c:#b8431f"><i>d</i></span></span></div>
+        <div class="sub"><span class="t" data-t="f" style="--c:#1f6485">f = 1 720 MHz</span> (UL) · <span class="t" data-t="hb" style="--c:#c4922a">h<sub>b</sub> = 30 m</span> · <span class="t" data-t="hm" style="--c:#8a7556">h<sub>m</sub> = 1,5 m</span> → L(1 km) = 135,5 dB, pente 35,2 dB/décade</div>
+        <div class="res">L(<span class="t" data-t="d" style="--c:#b8431f">R</span>) = MAPL ⇒ <span class="t" data-t="d" style="--c:#b8431f">R</span> = 10<sup>(128,8 − 135,5) / 35,2</sup> = <b class="red">0,64 km</b></div>
+        <div class="sub">rural, outdoor&nbsp;: MAPL 146,6 dB ⇒ R = 2,06 km</div>
+      </div>
+      <p class="small mt-s" data-a style="--i:8"><b>Liaison limitante&nbsp;: montante</b>, 2 dB sous la descendante. Cours&nbsp;: la frontière de la cellule est là où le mobile le plus faible communique <b>dans les deux sens</b>.</p>
+    </div>
+  </div>
+  <div class="chainbox mt-s" data-a style="--i:9"><svg class="chart" data-chain="1"></svg><button class="replay" type="button">Rejouer le trajet</button></div>
+  <aside class="notes">En haut&nbsp;: la somme du bilan (MAPL = PIRE + gain − sensibilité − marges = 128,8 dB). À droite&nbsp;: COST-231 Hata résolu pour d&nbsp;: quand la perte du trajet atteint le MAPL, on est au bord de la cellule, R = 0,64 km. En bas, l'animation suit <b>un seul signal montant</b> du téléphone au récepteur&nbsp;: 23 dBm au départ, −15 dB à travers le mur, puis les <b>marges de sécurité</b> (cadre pointillé)&nbsp;: ce ne sont pas des pertes physiques mais des dB gardés en réserve, 8,7 dB pour l'effet de masque (le niveau fluctue de σ = 8 dB à cause du relief et du bâti&nbsp;; avec cette réserve, 95 % de la surface passe), 2 dB pour l'interférence des cellules voisines chargées, et 0 dB pour l'évanouissement rapide (déjà compris dans les seuils SINR des bearers),, −128,8 dB de propagation sur 0,64 km, +18 dBi d'antenne, −1 dB de câble&nbsp;: il arrive à −114,4 dBm, exactement la sensibilité (bruit thermique sur 2 RB −174 + 10 log 360 kHz = −118,4 dBm, + NF 5 dB, + SINR −1 dB). Un mètre plus loin, le récepteur ne décode plus&nbsp;: c'est la définition du rayon. Cours (bilan de liaison)&nbsp;: la frontière est définie par le mobile le plus faible, dans les deux sens&nbsp;; ici c'est le sens montant qui limite.</aside>
+</section>
+
+<section class="slide" id="s-station" data-section="Dimensionnement" data-req="R-1 R-2 E1-2 A-3" data-steps="4">
+  <div class="row" style="height:100%;gap:36px">
+    <div class="col" style="width:440px;flex:none">
+      <h2 data-a style="--i:0">Une station de base, de près</h2>
+      <p class="lead" data-a style="--i:1">Ce que le bilan de liaison décide, posé sur le vrai terrain de Zaghouan.</p>
+      <div class="how mt" data-a style="--i:2" data-how3d>
+        <div class="h"><span class="c">1</span><div><b>Trois secteurs de 65°</b><span>un panneau de 18 dBi par secteur&nbsp;; le cercle est le rayon du bilan&nbsp;: 0,64 km en ville (indoor), 2,06 km en campagne</span></div></div>
+        <div class="h"><span class="c">2</span><div><b>Le tilt</b><span>chaque panneau penche vers le sol&nbsp;: l'axe du lobe touche le sol à h / tan(tilt), soit 430 m pour 4° sur un mât de 30 m</span></div></div>
+        <div class="h"><span class="c">3</span><div><b>Liaison descendante</b><span>la station émet 46 dBm, PIRE 63 dBm, vers les utilisateurs</span></div></div>
+        <div class="h"><span class="c">4</span><div><b>Liaison montante</b><span>le téléphone n'a que 23 dBm&nbsp;: c'est lui qui limite le rayon de la cellule</span></div></div>
+      </div>
+      <p class="small mt" data-a style="--i:3">Cliquer sur une station&nbsp;: ses secteurs, son rayon et ses utilisateurs MC-1000. Molette&nbsp;: zoom · double-clic&nbsp;: retour.</p>
+    </div>
+    <div class="three box3d grow" data-a style="--i:1" data-opts='{"sites":"init","labels":false,"view":{"look":[4.5,3,-28],"r":78,"h":46,"ang":2.55},"steps":[{"focus":null,"view":{"look":[4.5,3,-28],"r":78,"h":46,"ang":2.55}},{"focus":"auto","layers":{"sectors":1,"ring":1}},{"layers":{"sectors":1,"ring":1,"beams":1}},{"layers":{"sectors":1,"ring":1,"beams":1,"dl":1}},{"layers":{"sectors":1,"ring":1,"beams":1,"ul":1}}]}'></div>
+  </div>
+  <aside class="notes">Quatre temps avec →. (1) La station se dessine avec ses 3 secteurs de 65° et le cercle de rayon R issu du bilan de liaison (0,64 km en indoor urbain). (2) Le tilt&nbsp;: avec un mât de 30 m et 4° de tilt, l'axe du lobe touche le sol à 30 / tan 4° = 429 m&nbsp;; c'est la géométrie de la diapo du tilt (action 1). (3) La liaison descendante&nbsp;: 46 dBm + 18 dBi − 1 dB = PIRE 63 dBm. (4) La liaison montante&nbsp;: le téléphone n'émet que 23 dBm, c'est pourquoi le bilan montant fixe le rayon (2 dB sous le descendant). Les petits personnages sont de vrais utilisateurs connectés du tirage MC-1000. Cliquer sur un site rural montre son cercle de 2,06 km. Azimuts dessinés&nbsp;: 0/120/240° (plan nominal&nbsp;; l'ACP les a ensuite ajustés de ±20° au plus).</aside>
+</section>
+
+<section class="slide" id="s-sites" data-section="Dimensionnement" data-req="R-2">
+  <h2 data-a style="--i:0">Du rayon au nombre de sites</h2>
+  <p class="lead" data-a style="--i:1;max-width:none">Surface d'un site = k·R². Chaque antenne a son propre R, car son gain change le bilan de liaison.</p>
+  <div class="feet mt">
+    <div class="f" data-a style="--i:2"><svg data-foot="omni"></svg><h3>Omni · 11 dBi</h3>
+      <div class="meta"><span>coefficient k</span><b>2,6</b><span>urbain&nbsp;: R · sites</span><b>0,41 km · 20</b><span>rural&nbsp;: R · sites</span><b>1,30 km · 18</b></div>
+      <div class="tot"><span class="fig m">38</span><span class="small">sites au total</span></div></div>
+    <div class="f pick" data-a style="--i:3"><svg data-foot="tri"></svg><h3>Tri-secteur 65° · 18 dBi <span class="v yes">retenu</span></h3>
+      <div class="meta"><span>coefficient k</span><b>1,95</b><span>urbain&nbsp;: R · sites</span><b>0,64 km · 11</b><span>rural&nbsp;: R · sites</span><b>2,06 km · 10</b></div>
+      <div class="tot"><span class="fig m red">21</span><span class="small">sites au total</span></div></div>
+    <div class="f" data-a style="--i:4"><svg data-foot="six"></svg><h3>6 secteurs 33° · 21 dBi</h3>
+      <div class="meta"><span>coefficient k</span><b>2,6</b><span>urbain&nbsp;: R · sites</span><b>0,78 km · 6</b><span>rural&nbsp;: R · sites</span><b>2,51 km · 5</b></div>
+      <div class="tot"><span class="fig m">11</span><span class="small">sites au total</span></div></div>
+  </div>
+  <p class="mt" data-a style="--i:5;max-width:92ch">Le 6-secteurs réduit le nombre de sites, mais double le nombre de cellules et les zones de recouvrement en réutilisation 1, et ses antennes 33° sont plus rares. Le tri-secteur suit le cours&nbsp;: <b>un site = trois secteurs</b>, et c'est le standard des modèles Atoll.</p>
+  <aside class="notes">Les coefficients&nbsp;: un hexagone de rayon R a une surface 2,6·R²&nbsp;; un site tri-secteur couvre 1,95·R² (trois losanges, dessin du milieu). On compte séparément le centre (R = 0,64 km, indoor) et la campagne (R = 2,06 km, outdoor). <b>21 sites</b> au total&nbsp;: retenez ce nombre, on le retrouvera à la fin de l'optimisation.</aside>
+</section>
+
+<section class="slide" id="s-capa" data-section="Dimensionnement" data-req="U-1 U-2 U-3 U-4 U-5 E1-4">
+  <h2 data-a style="--i:0;max-width:none">Capacité&nbsp;: la ville a besoin de 5 sites, la couverture en exige 11</h2>
+  <h3 class="small mt" data-a style="--i:1">Demande à l'heure chargée, centre urbain</h3>
+  <div class="flow mt-s" data-step="1">
+    <div class="node "><div class="fig"><span data-count="13590" data-dec="0">13 590</span></div><div class="k">habitants</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node "><div class="fig"><span data-count="3560" data-dec="0" data-delay="700">3 560</span></div><div class="k">abonnés LTE · × 93,9 % pénétration × 30 % part de marché × 93 % LTE</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node "><div class="fig">63,3<span class="u">kbps</span></div><div class="k">DL par abonné · 9,5 Go/mois, 10 % à l'heure chargée, 90 % en DL</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node key"><div class="fig"><span data-count="225" data-dec="0">225</span><span class="u">Mbps</span></div><div class="k"><b>demande DL totale</b></div></div>
+  </div>
+  <h3 class="small mt" data-step="2">Offre d'une cellule (traduction GSM → LTE)</h3>
+  <div class="flow mt-s" data-step="2">
+    <div class="node "><div class="fig">20<span class="u">MHz</span></div><div class="k">U-1 · fréquences par cellule&nbsp;: 100 RB</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node "><div class="fig">120 / 168</div><div class="k">U-2 · RE utiles par RB en DL (− signalisation)</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node "><div class="fig">21,6<span class="u">Mbps</span></div><div class="k">débit moyen d'une cellule</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node key2"><div class="fig">272</div><div class="k">U-3 · abonnés par cellule (charge 80 %)</div></div>
+  </div>
+  <div class="row mt" data-step="3" style="align-items:center;gap:40px">
+    <div class="flow" style="flex:none;width:520px"><div class="node "><div class="fig">14</div><div class="k">U-4 · cellules = 3 560 / 272</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node key2"><div class="fig">5</div><div class="k"><b>U-5 · sites</b> (÷ 3 secteurs)</div></div></div>
+    <div class="grow">
+      <div class="hbar" style="--lab:150px;--val:80px"><div class="lb">capacité</div><div class="tr"><b style="--w:45.5%;--c:#4f7a45;--i:0"></b></div><div class="vl">5 sites</div></div>
+      <div class="hbar" style="--lab:150px;--val:80px"><div class="lb">couverture</div><div class="tr"><b style="--w:100%;--c:#b8431f;--i:1"></b></div><div class="vl red">11 sites</div></div>
+      <p class="small mt-s">Retenu&nbsp;: max(couverture 11, capacité 5) = <b>11 sites urbains</b>. Limité par la couverture aujourd'hui, par la capacité demain.</p>
+    </div>
+  </div>
+  <aside class="notes">Trois temps avec →&nbsp;: la demande, l'offre d'une cellule, le résultat. Le sujet est écrit en logique GSM (Erlang B, 2 canaux de signalisation). On l'a <b>traduit</b>&nbsp;: les « canaux » deviennent des ressources radio (RE), la signalisation devient PDCCH + signaux de référence (48 des 168 RE d'un RB en DL). Le débit d'une cellule (21,6 Mbps) vient de la formule C/I du cours appliquée en chaque point de l'hexagone, convertie en bearer Atoll. La charge maximale de 80 % joue le rôle du taux de blocage d'Erlang B.</aside>
+</section>
+
+<section class="slide" id="s-reuse" data-section="Dimensionnement" data-req="E1-7 E1-8 R-3 R-4 R-5">
+  <h2 data-a style="--i:0;max-width:none">Réutilisation&nbsp;: le pire cas dit K = 3, la cellule réelle dit K = 1</h2>
+  <div class="row mt">
+    <div class="grow col">
+      <p class="small" data-a style="--i:1">Formules du cours&nbsp;: D = √(3K)·R, q = D/R, C/I = (q − 1)^α / 6, α = 3,52</p>
+      <table class="t mt-s">
+        <thead><tr><th>K</th><th class="r">q</th><th class="r">C/I pire cas</th><th>GSM ≥ 9 dB</th><th>LTE ≥ −1 dB</th><th class="r">MHz par cellule</th></tr></thead>
+        <tbody>
+          <tr style="--r:0" data-k="1"><td><b>1</b></td><td class="r">1,73</td><td class="r red">−12,6 dB</td><td>non</td><td>non</td><td class="r"><b>20,0</b></td></tr>
+          <tr style="--r:1" data-k="3"><td>3</td><td class="r">3,00</td><td class="r">2,8 dB</td><td>non</td><td>oui</td><td class="r">6,7</td></tr>
+          <tr style="--r:2" data-k="4"><td>4</td><td class="r">3,46</td><td class="r">6,0 dB</td><td>non</td><td>oui</td><td class="r">5,0</td></tr>
+          <tr style="--r:3" data-k="7"><td>7</td><td class="r">4,58</td><td class="r">11,7 dB</td><td>oui</td><td>oui</td><td class="r">2,9</td></tr>
+          <tr style="--r:4" data-k="9"><td>9</td><td class="r">5,20</td><td class="r">14,2 dB</td><td>oui</td><td>oui</td><td class="r">2,2</td></tr>
+        </tbody>
+      </table>
+      <div class="row mt" style="gap:40px">
+        <div class="stat" data-a style="--i:3"><div class="k">C/I calculé en chaque point de la cellule</div><div class="fig m"><span data-count="8.4">8,4</span><span class="u">% sous −1 dB</span></div><div class="d">médiane 5,4 dB&nbsp;: le pire cas est rare</div></div>
+        <div class="stat grow" data-a style="--i:4"><div class="k">Choix et plan (R-4, R-5)</div><p class="small"><b>K = 1</b>&nbsp;: 3 fois plus de spectre par cellule. 1 porteuse 20 MHz (EARFCN 1300) partout&nbsp;; on planifie les <b>PCI</b>&nbsp;: site s → 3s, 3s+1, 3s+2.</p></div>
+      </div>
+    </div>
+    <div class="col" data-a style="width:500px;--i:2">
+      <div class="seg" data-reuse-seg><button data-v="1">K = 1</button><button data-v="3">K = 3</button><button data-v="4">K = 4</button><button data-v="7">K = 7</button><button data-v="9">K = 9</button></div>
+      <div style="height:380px" class="mt-s"><svg data-reuse="1"></svg></div>
+      <p class="small" data-reuse-out></p>
+    </div>
+  </div>
+  <aside class="notes">Cliquer sur K = 1, 3, 4, 7, 9&nbsp;: les cellules terre cuite utilisent la même fréquence que la cellule centrale&nbsp;; le cercle pointillé est la distance de réutilisation D. Le pire cas du cours met l'utilisateur au bord et les <b>6 interféreurs au plus près en même temps</b>&nbsp;: −12,6 dB pour K = 1. Mais en appliquant la même formule à chaque point de la cellule, seulement 8,4 % de la surface passe sous −1 dB. Le LTE tolère des SINR faibles grâce à la modulation adaptative&nbsp;: c'est l'idée de la diapo 31 du cours poussée jusqu'à K = 1. Les PCI des 3 secteurs d'un site ont des valeurs mod 3 différentes (signaux de référence décalés).</aside>
+</section>
+
+<section class="slide" id="s-nominal" data-section="Dimensionnement" data-req="R-2 A-3">
+  <div class="row">
+    <div class="map" style="--size:680px" data-sites="init" data-labels="1" data-a></div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Le plan nominal&nbsp;: 20 sites sur une grille hexagonale</h2>
+      <p class="lead" data-a style="--i:1">Distance entre sites 1,5·R&nbsp;: 0,96 km en ville, 3,1 km en campagne. Aucun site sur le massif.</p>
+      <div class="row mt" style="gap:40px">
+        <div class="stat" data-a style="--i:2"><div class="k">Sites urbains</div><div class="fig l slate">10</div><div class="d">formule&nbsp;: 11 (effets de bord de la grille)</div></div>
+        <div class="stat" data-a style="--i:3"><div class="k">Sites ruraux</div><div class="fig l red">10</div><div class="d">R01 et R02 tombent près de U01 et U02</div></div>
+      </div>
+      <p class="small mt" data-a style="--i:4">On garde volontairement la grille brute comme réseau initial&nbsp;: c'est elle que l'on optimisera, avec un avant / après mesuré.</p>
+      <div class="legend mt" data-a style="--i:5"><span><i class="dot" style="background:#1f6485"></i>site urbain</span><span><i class="dot" style="background:#b8431f"></i>site rural</span><span>fond&nbsp;: occupation du sol réelle</span></div>
+    </div>
+  </div>
+  <aside class="notes">Les positions sont posées automatiquement par le script sur une grille hexagonale, puis importées telles quelles dans Atoll (copier-coller du fichier de coordonnées). On n'a <b>rien corrigé à la main</b>&nbsp;: R01 et R02 sont trop proches des sites urbains et R07 tombe sur le flanc du massif. Ce sont exactement les défauts que l'optimisation va corriger, avec des chiffres.</aside>
+</section>
+
+<!-- =================================================================== 3. ATOLL -->
+
+<section class="slide" id="s-atoll" data-section="Atoll" data-req="A-1 A-2 A-3 A-4">
+  <h2 data-a style="--i:0">Dans Atoll&nbsp;: le réseau de l'Étape 1, sur le terrain réel</h2>
+  <div class="row mt">
+    <div style="width:520px" class="col">
+      <table class="t">
+        <tbody>
+          <tr style="--r:0"><td><b>Cartes</b></td><td>MNT 25 m · occupation du sol 10 m · population 100 m, UTM 32N</td></tr>
+          <tr style="--r:1"><td><b>Propagation</b></td><td>Cost-Hata + diffraction sur le MNT</td></tr>
+          <tr style="--r:2"><td><b>Occupation du sol</b></td><td>σ 8 / 7 / 6 dB · indoor 15 / 10 dB à 1 800 MHz</td></tr>
+          <tr style="--r:3"><td><b>Stations</b></td><td>2 modèles « 20 MHz B3 »&nbsp;: 46 dBm, tilt 4° urbain / 2° rural</td></tr>
+          <tr style="--r:4"><td><b>Réseau</b></td><td>20 sites, 60 émetteurs, RS EPRE 15,4 dBm</td></tr>
+          <tr style="--r:5"><td><b>Trafic</b></td><td>carte de densité = population, mix multiservice</td></tr>
+        </tbody>
+      </table>
+      <p class="small mt" data-a style="--i:4">Cliquer sur une capture pour l'agrandir.</p>
+    </div>
+    <div class="grow" style="display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:280px 230px;gap:16px">
+      <figure class="ev" data-a style="--i:2;grid-row:span 2"><img src="assets/atoll/reseau_complet.png" alt="Réseau complet dans Atoll" style="--pos:60% 50%"><figcaption>60 émetteurs dans Atoll</figcaption></figure>
+      <figure class="ev" data-a style="--i:3"><img src="assets/atoll/template_lte.png" alt="Modèle de station LTE" style="--pos:50% 30%"><figcaption>modèle de station&nbsp;: 46 dBm, bande 3</figcaption></figure>
+      <figure class="ev" data-a style="--i:4"><img src="assets/atoll/costhata.png" alt="Cost-Hata, diffraction activée" style="--pos:50% 40%"><figcaption>Cost-Hata, diffraction activée</figcaption></figure>
+    </div>
+  </div>
+  <aside class="notes">Ce qui garantit la cohérence avec l'Étape 1&nbsp;: même modèle (<b>Cost-Hata</b> ↔ COST-231 Hata), même puissance, mêmes antennes, mêmes marges. Une différence voulue&nbsp;: Atoll ajoute la <b>diffraction</b> sur le relief, que la formule de Hata ignore&nbsp;; c'est elle qui fait apparaître l'ombre du massif. Deux pièges rencontrés et corrigés&nbsp;: la population lue ×100 (densité prise pour un nombre par pixel) et la copie de modèle qui perdait le mode MIMO. Le RS EPRE affiché (15,4 dBm) valide la puissance de 46 dBm sur 20 MHz.</aside>
+</section>
+
+<!-- =================================================================== 4. PREDICTIONS -->
+
+<section class="slide" id="s-l1" data-section="Prédictions" data-req="L-1 L-2 L-3 A-7">
+  <div class="row">
+    <div class="map" style="--size:680px" data-layers="gaps_initial.png" data-sites="init" data-co='[["so","Coin sud-ouest",1],["est","Pied est de la crête",2],["se","Sud-est",3]]' data-a></div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Niveau de signal&nbsp;: la ville est couverte, la campagne non</h2>
+      <p class="small mt-s" data-a style="--i:1">Seuil −120 dBm (RSRP en bord de cellule), probabilité 86 %, réseau initial.</p>
+      <div class="row mt" style="gap:36px">
+        <div class="stat" data-a style="--i:2"><div class="k">Centre urbain, indoor</div><div class="fig l"><span data-count="99.5">99,5</span><span class="u">%</span></div><div class="mt-s"><span class="v yes">objectif 95 % atteint</span></div></div>
+        <div class="stat" data-a style="--i:3"><div class="k">Rural, outdoor</div><div class="fig l red"><span data-count="83.4">83,4</span><span class="u">%</span></div><div class="mt-s"><span class="v no">−11,6 points</span></div></div>
+      </div>
+      <p class="mt" data-a style="--i:4">Les trous (en rouge) sont derrière le massif&nbsp;: le coin sud-ouest, le pied est de la crête, le sud-est. Ils couvrent 12,8 km², mais seulement 4,6 % des ruraux&nbsp;: <b>95,4 % de la population rurale est couverte</b>.</p>
+      <div class="row mt" style="gap:14px;height:150px">
+        <figure class="ev grow" data-a style="--i:5"><img src="assets/atoll/l01_signal_outdoor.png" alt="L-1 Atoll"><figcaption>L-1 · carte Atoll + légende (L-3)</figcaption></figure>
+        <figure class="ev grow" data-a style="--i:6"><img src="assets/atoll/l02_hist_outdoor.png" alt="L-2 histogramme"><figcaption>L-2 · histogramme&nbsp;: 73,8 km² ≥ −120 dBm</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Le seuil de <b>−120 dBm</b> est le RSRP au bord de notre cellule de 0,64 km&nbsp;: il découle du bilan de liaison (RS EPRE − puissance UE + sensibilité). Les pourcentages par zone viennent de notre script, qui lit les rasters exportés d'Atoll et les croise avec les zones de l'Étape 1. Histogrammes Atoll&nbsp;: 59,1 km² en indoor, 73,8 km² en outdoor. À dire&nbsp;: l'objectif est fixé en <b>surface</b>, donc il n'est pas atteint en campagne, même si presque tous les habitants sont couverts.</aside>
+</section>
+
+<section class="slide" id="s-ombre" data-section="Prédictions" data-req="L-1 A-7 L-12" data-steps="1">
+  <div class="row" style="height:100%;gap:36px">
+    <div class="three box3d grow" data-a style="--i:1" data-opts='{"sites":"init","newSites":["R11","R12"],"labels":false,"view":{"look":[-10,3,12],"r":128,"h":72,"ang":0.3},"drape":"gaps_initial.png","steps":[{"sites":"init","drape":"gaps_initial.png","focus":null},{"sites":"final","drape":"gaps_acp.png","focus":null}]}'></div>
+    <div class="col" style="width:440px;flex:none">
+      <h2 data-a style="--i:0">L'ombre du massif, en relief</h2>
+      <p class="lead" data-a style="--i:1">Cost-Hata avec diffraction&nbsp;: quand la crête coupe la ligne de vue, le signal chute derrière elle.</p>
+      <div class="how mt" data-a style="--i:2" data-how3d="1">
+        <div class="h cur"><span class="c">1</span><div><b>Réseau initial, 20 sites</b><span>en terre cuite&nbsp;: les trous de couverture rurale exportés d'Atoll, tous derrière la crête</span></div></div>
+        <div class="h"><span class="c">2</span><div><b>Réseau final, 21 sites</b><span>R11 et R12 (or) posés dans l'ombre, puis l'ACP règle les tilts et azimuts</span></div></div>
+      </div>
+      <div class="kpis mt" data-a style="--i:3">
+        <div class="stat"><div class="k">rural outdoor, initial</div><div class="fig red">83,4<span class="u">%</span></div></div>
+        <div class="stat" data-step="1"><div class="k">final</div><div class="fig green">94,3<span class="u">%</span></div></div>
+      </div>
+      <p class="small mt" data-a style="--i:4">→&nbsp;: passer au réseau final · clic sur une station&nbsp;: son rayon et ses secteurs.</p>
+    </div>
+  </div>
+  <aside class="notes">La même carte des trous que la diapo précédente, mais drapée sur le relief réel&nbsp;: on voit que les trous sont exactement dans l'ombre de la crête vue depuis les sites. C'est l'effet de l'option « diffraction » du modèle Cost-Hata. → passe au réseau final&nbsp;: les deux sites ajoutés (or) sont posés à l'intérieur de l'ombre, car aucun site extérieur ne peut passer la crête (actions 3 et 3b rejetées). Rural outdoor&nbsp;: 83,4 % → 94,3 %.</aside>
+</section>
+
+<section class="slide" id="s-l4" data-section="Prédictions" data-req="L-4 L-5 L-6">
+  <h2 data-a style="--i:0">Par émetteur et recouvrement&nbsp;: trop de serveurs en ville</h2>
+  <div class="row mt">
+    <figure class="ev" data-a style="--i:1;width:440px;height:300px"><img src="assets/atoll/l04_emetteur.png" alt="L-4"><figcaption>L-4 · zone de service de chaque émetteur</figcaption></figure>
+    <figure class="ev" data-a style="--i:2;width:440px;height:300px"><img src="assets/atoll/l05_recouvrement.png" alt="L-5 carte"><figcaption>L-5/L-6 · recouvrement (marge 5 dB) + légende</figcaption></figure>
+    <div class="grow col">
+      <h3 data-a style="--i:3">Histogramme du recouvrement (L-5)</h3>
+      <div class="mt-s">
+        <div class="hbar" style="--lab:110px;--val:90px"><div class="lb">1 serveur</div><div class="tr"><b style="--w:100%;--c:#9cc9d6;--i:0"></b></div><div class="vl">48,85</div></div>
+        <div class="hbar" style="--lab:110px;--val:90px"><div class="lb">2 serveurs</div><div class="tr"><b style="--w:36.5%;--c:#4f95b0;--i:1"></b></div><div class="vl">17,83</div></div>
+        <div class="hbar" style="--lab:110px;--val:90px"><div class="lb">3 serveurs</div><div class="tr"><b style="--w:9.6%;--c:#1f6485;--i:2"></b></div><div class="vl">4,70</div></div>
+        <div class="hbar" style="--lab:110px;--val:90px"><div class="lb">≥ 4 serveurs</div><div class="tr"><b style="--w:4.9%;--c:#b8431f;--i:3"></b></div><div class="vl red">2,39</div></div>
+      </div>
+      <figure class="ev mt-s" data-a style="--i:4;height:120px;width:300px"><img src="assets/atoll/l05_hist.png" alt="L-5 histogramme Atoll" style="--pos:50% 45%"><figcaption>L-5 · histogramme exporté d'Atoll (km²)</figcaption></figure>
+    </div>
+  </div>
+  <div class="row mt" style="gap:56px">
+    <div class="stat" data-a style="--i:4"><div class="k">Surface servie par ≥ 2 émetteurs à 5 dB près</div><div class="fig m"><span data-count="34" data-dec="0">34</span><span class="u">% de la surface couverte</span></div></div>
+    <p class="grow" data-a style="--i:5">Bonne nouvelle pour le handover, mauvaise pour l'interférence&nbsp;: là où 4 serveurs arrivent avec le même niveau, l'utilisateur n'en garde qu'un, les 3 autres deviennent du bruit. Les zones rouges sont entre U02 et U04, autour de U05 à U08, et près de R02.</p>
+  </div>
+  <aside class="notes"><b>L-4</b> montre quel émetteur sert chaque point&nbsp;: les sites ruraux perchés (R04, R06) servent loin dans la plaine. <b>L-5</b> compte combien d'émetteurs arrivent à moins de 5 dB du meilleur. Le recouvrement est utile (c'est la zone de handover) mais en réutilisation 1, c'est aussi la source d'interférence. Ce recouvrement explique directement la carte C/(I+N) de la diapo suivante.</aside>
+</section>
+
+<section class="slide" id="s-cinr" data-section="Prédictions" data-req="L-1 A-7">
+  <h2 data-a style="--i:0">C/(I+N)&nbsp;: avec toutes les cellules à 100 %, l'interférence domine</h2>
+  <div class="row mt">
+    <figure class="ev" data-a style="--i:1;width:600px;height:450px"><img src="assets/atoll/l01b_cinr_100.png" alt="C/(I+N) charge 100 %" style="--pos:55% 40%"><figcaption>C/(I+N) DL, charge 100 %, réseau initial</figcaption></figure>
+    <div class="grow col">
+      <div class="stat" data-a style="--i:2"><div class="k">Surface avec C/(I+N) ≥ −1 dB (bearer 4 accessible)</div><div class="fig xl red"><span data-count="13.1">13,1</span><span class="u">km²</span></div><div class="d">sur 100 km² · moyenne 4,9 dB</div></div>
+      <p class="mt" data-a style="--i:3">Avec 4 serveurs à 5 dB près, le signal utile vaut au mieux un quart du total&nbsp;: <b>C/I ≈ −5 dB</b>. C'est l'avertissement du cours pour K = 1 (pire cas −12,6 dB), vu sur un relief réel.</p>
+      <div class="stat mt" data-a style="--i:4"><div class="k">Trois causes, une à la fois</div>
+        <p class="small"><b>1.</b> Recouvrement des sites urbains (géométrie, tilt).<br><b>2.</b> Charge de 100 % sur les 60 cellules (table des cellules par défaut).<br><b>3.</b> Marge d'ombrage 86 % appliquée au C/I.</p></div>
+    </div>
+  </div>
+  <aside class="notes">La prédiction C/(I+N) utilise la charge écrite dans la table des cellules&nbsp;: par défaut <b>100 % en DL</b> pour les 60 cellules (pessimiste) et <b>0 dB d'interférence montante</b> (optimiste). On a testé la carte sans ombrage&nbsp;: les zones s'agrandissent mais les trous entre sites urbains restent, donc la cause principale est la géométrie et la charge. Les blancs = pas de bearer utilisable pour le service (le service n'accepte rien sous le bearer 4).</aside>
+</section>
+
+<section class="slide" id="s-debit" data-section="Prédictions" data-req="L-7 L-8 L-9 L-10">
+  <h2 data-a style="--i:0">Débits&nbsp;: en DL, c'est le SINR qui décide, en UL, la puissance</h2>
+  <div class="row mt">
+    <div class="grow col">
+      <figure class="ev" data-a style="--i:1;height:250px"><img src="assets/atoll/l07_dl.png" alt="L-7" style="--pos:60% 40%"><figcaption>L-7 · débit DL applicatif + légende (L-9)</figcaption></figure>
+      <div class="stat mt" data-a style="--i:2"><div class="k">DL ≥ 1 024 kbps</div><div class="fig m"><span data-count="13.1">13,1</span><span class="u">km²</span></div>
+        <div class="d">exactement la surface où C/(I+N) ≥ −1 dB. Aucun pixel entre 1 et 5 Mbps&nbsp;: dès qu'un bearer existe, l'utilisateur reçoit ≥ 5,8 Mbps (calcul&nbsp;: 7,2 Mbps × 0,95 avant erreurs).</div></div>
+    </div>
+    <div class="grow col">
+      <figure class="ev" data-a style="--i:3;height:250px"><img src="assets/atoll/l08_ul.png" alt="L-8" style="--pos:60% 40%"><figcaption>L-8 · débit UL, bande allouée</figcaption></figure>
+      <div class="stat mt" data-a style="--i:4"><div class="k">UL ≥ 128 kbps</div><div class="fig m"><span data-count="48.6">48,6</span><span class="u">km²</span></div>
+        <div class="d">limité par les 23 dBm du téléphone&nbsp;: en bord de cellule il concentre sa puissance sur 2 RB (10·log(100/2) ≈ 17 dB de gain).</div></div>
+    </div>
+    <div style="width:330px" class="col">
+      <div class="stat" data-a style="--i:5"><div class="k">Débit demandé (L-10)</div><p class="small">Service « High Speed Internet »&nbsp;: 1 024 kbps DL, 128 kbps UL. Atoll affiche 972,8 = 1 024 × 0,95 au niveau applicatif&nbsp;: notre facteur 0,95.</p></div>
+      <table class="t mt">
+        <thead><tr><th></th><th class="r">Atteint</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr style="--r:0"><td>DL 1 Mbps</td><td class="r">13 %</td><td><span class="v no">non</span></td></tr>
+          <tr style="--r:1"><td>UL 128 kbps</td><td class="r">49 %</td><td><span class="v no">non</span></td></tr>
+        </tbody>
+      </table>
+      <p class="small mt-s">réseau initial, charge 100 %, surface totale</p>
+    </div>
+  </div>
+  <aside class="notes">On a choisi le champ « <b>Application</b> »&nbsp;: c'est ce que reçoit vraiment l'application, après les erreurs (BLER) et le facteur 0,95. Le chiffre clé&nbsp;: 13,1 km² en DL, la même valeur que la carte C/(I+N). Donc en DL, le débit cible est décidé par l'<b>interférence</b>, pas par le débit du bearer. En UL, la carte ignore ici l'interférence (montée du bruit 0 dB dans la table), elle mesure la limite de puissance du téléphone.</aside>
+</section>
+
+<section class="slide" id="s-charge" data-section="Prédictions" data-req="L-10 A-7">
+  <div class="row">
+    <div class="map" style="--size:680px" data-layers="cinr_mc1000.png" data-sites="init" data-dim="1" data-a></div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">La vraie charge change tout</h2>
+      <p class="lead" data-a style="--i:1">On injecte dans Atoll les charges calculées par le Monte-Carlo à 1 000 utilisateurs&nbsp;: 4 à 18 % en ville, 30,7 % au plus.</p>
+      <div class="row mt" style="gap:40px;align-items:flex-end">
+        <div class="stat" data-a style="--i:2"><div class="k">C/(I+N) ≥ −1 dB, charge 100 %</div><div class="fig m muted">14,6<span class="u">km²</span></div></div>
+        <div class="stat" data-a style="--i:3"><div class="k">charge simulée</div><div class="fig l red"><span data-count="36.1" data-from="14.6">36,1</span><span class="u">km²</span></div></div>
+        <div class="stat" data-a style="--i:4"><div class="fig m">× 2,5</div></div>
+      </div>
+      <table class="t mt">
+        <thead><tr><th>Zone</th><th class="r">DL ≥ 1 Mbps</th><th class="r">UL ≥ 128 kbps</th></tr></thead>
+        <tbody>
+          <tr style="--r:0"><td>Centre urbain</td><td class="r">78,9 % <span class="v no">−16 pts</span></td><td class="r">99,5 % <span class="v yes">atteint</span></td></tr>
+          <tr style="--r:1"><td>Rural</td><td class="r">38,0 %</td><td class="r">55,8 %</td></tr>
+        </tbody>
+      </table>
+      <div class="legend mt" data-a style="--i:6"><span>C/(I+N) DL</span><span><i style="background:#0f3b57"></i>≥ 15,5 dB</span><span><i style="background:#1f6485"></i>≥ 10</span><span><i style="background:#4f95b0"></i>≥ 4,5</span><span><i style="background:#9cc9d6"></i>≥ −1</span></div>
+    </div>
+  </div>
+  <aside class="notes">Même réseau, mêmes tilts&nbsp;: seule la charge change. En réutilisation 1, l'interférence reçue est <b>proportionnelle à la charge des voisines</b>&nbsp;: de 100 % à moins de 20 %, la surface utilisable en DL est multipliée par 2,5. Il reste deux problèmes distincts&nbsp;: l'interférence <b>entre sites urbains</b> (79 % au lieu de 95 %) et la <b>couverture</b> au sud du massif, où la charge ne change rien.</aside>
+</section>
+
+<!-- =================================================================== 5. MONTE-CARLO -->
+
+<section class="slide" id="s-mc" data-section="Monte-Carlo" data-req="A-4 A-6" data-steps="5">
+  <div class="row">
+    <div class="map" style="--size:680px" data-sites="none" data-dim="1" data-mc="1" data-a>
+      <svg class="vec chart mcu" viewBox="0 0 100 100" data-users="1"></svg>
+      <div class="ucard" data-ucard></div>
+    </div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Monte-Carlo&nbsp;: chaque utilisateur passe trois tests</h2>
+      <div class="row mt-s" data-a style="align-items:center;gap:16px;--i:1"><div class="seg" data-mc-seg><button data-v="MC10">10</button><button data-v="MC100">100</button><button data-v="MC1000">1 000</button></div><span class="small">utilisateurs demandés · un vrai tirage d'Atoll · survoler un point</span></div>
+      <div class="gates mt-s" data-a style="--i:2">
+        <div class="gt"><span class="c">0</span><div><b>Le tirage</b><span>la carte de population sert de carte de trafic&nbsp;: 1 habitant = 1 utilisateur potentiel, tiré au hasard</span></div><em class="n"><i data-mc-n>1 041</i>tirés</em></div>
+        <div class="gt"><span class="c">1</span><div><b>Le signal arrive-t-il&nbsp;?</b><span>au moins une cellule reçue au-dessus du seuil de réception</span></div><em class="n nocov"><i data-mc-c1>31</i>pas de couverture</em></div>
+        <div class="gt"><span class="c">2</span><div><b>Est-il assez propre&nbsp;?</b><span>C/(I+N) ≥ −1 dB, le seuil du bearer le plus robuste&nbsp;: en dessous, aucun débit possible</span></div><em class="n nosrv"><i data-mc-c2>77</i>pas de service</em></div>
+        <div class="gt"><span class="c">3</span><div><b>La cellule a-t-elle de la place&nbsp;?</b><span>ressources radio libres, charge ≤ 80 %</span></div><em class="n sat"><i data-mc-c3>0</i>saturation</em></div>
+        <div class="gt ok"><span class="c">✓</span><div><b>Connecté</b><span>il reçoit un débit, partagé avec les autres utilisateurs de sa cellule</span></div><em class="n okn"><i data-mc-ok>933</i>connectés</em></div>
+      </div>
+      <div class="verdict mt-s" data-step="5">
+        <p><b>Tous les rejets viennent du signal</b> (tests 1 et 2), <b>aucun de la capacité</b> (test 3). Sur 20 tirages, Atoll trouve en moyenne <b data-mc-avg>10,8 %</b> de rejetés et 0 saturation, quel que soit le nombre d'utilisateurs.</p>
+        <div class="zchips"><span class="lbl">Où sont les <b data-mc-rej>108</b> rejetés&nbsp;?</span>
+          <span class="zc" data-zchip="r"><b data-mc-zr>76</b> campagne, loin des sites</span>
+          <span class="zc" data-zchip="m"><b data-mc-zm>14</b> massif</span>
+          <span class="zc" data-zchip="u"><b data-mc-zu>18</b> ville, dont <b data-mc-zin>17</b> à l'intérieur</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">Cinq temps avec →&nbsp;: (0) la carte de population devient la carte de trafic, (1) Atoll tire les utilisateurs au hasard, plus nombreux là où vivent les gens, puis il fait passer à chacun trois tests, dans l'ordre. <b>Test 1, couverture</b>&nbsp;: reçoit-il une cellule au-dessus du seuil&nbsp;? Sinon « pas de couverture » (croix noires, surtout dans les coins de la zone et sur le massif). <b>Test 2, qualité</b>&nbsp;: son C/(I+N) dépasse-t-il −1 dB, le seuil du bearer le plus robuste&nbsp;? Dans l'export, tous les connectés ont C/(I+N) ≥ −0,9 dB et tous les « pas de service » ≤ −1,1 dB&nbsp;: le seuil se lit dans les données. <b>Test 3, capacité</b>&nbsp;: sa cellule a-t-elle encore des ressources (charge max 80 %)&nbsp;? Personne n'échoue ici, même à 1 000 utilisateurs. Conclusion&nbsp;: les rejets sont un problème de <b>signal</b> (couverture et interférence), pas de capacité, et ils sont surtout dans la campagne loin des sites, pas seulement au sud du massif. En ville, ce sont des utilisateurs à l'intérieur (15 dB de mur) avec un C/(I+N) trop faible. Survoler un point&nbsp;: sa cellule, son RSRP, son C/(I+N) et le test qui l'a arrêté, lus dans l'export Atoll. <b>Pourquoi 10 / 100 / 1 000</b>&nbsp;: réseau presque vide, charge normale, test de stress&nbsp;; la demande de l'Étape 1 à l'heure chargée (≈ 225 Mbps) se situe entre 100 et 1 000. Services HSI 60 %, Internet mobile 25 %, VoIP 15 %&nbsp;; graine 1 = tirage reproductible.</aside>
+</section>
+
+<section class="slide" id="s-dcfi" data-section="Monte-Carlo" data-req="L-11">
+  <h2 data-a style="--i:0">DCFI&nbsp;: qui reçoit au moins x kbps&nbsp;?</h2>
+  <div class="row mt">
+    <div class="grow">
+      <h3 class="small" data-a style="--i:1">DL · utilisateurs High Speed Internet (rejetés comptés à 0) · survoler pour lire</h3>
+      <svg class="chart mt-s" style="width:100%;height:auto" data-dcfi='{"key":"dl","target":1024,"W":640,"H":330,"series":[{"k":"MC10","c":"#a7bd8c"},{"k":"MC100","c":"#4f7a45"},{"k":"MC1000","c":"#b8431f","w":3.2}]}'></svg>
+    </div>
+    <div class="grow">
+      <h3 class="small" data-a style="--i:2">UL · mêmes utilisateurs</h3>
+      <svg class="chart mt-s" style="width:100%;height:auto" data-dcfi='{"key":"ul","target":128,"W":640,"H":330,"series":[{"k":"MC10","c":"#a7bd8c"},{"k":"MC100","c":"#4f7a45"},{"k":"MC1000","c":"#b8431f","w":3.2}]}'></svg>
+    </div>
+  </div>
+  <div class="row mt" style="gap:40px;align-items:center">
+    <div class="legend" data-a style="--i:3"><span><i style="background:#a7bd8c"></i>MC-10 · 111 utilisateurs HSI</span><span><i style="background:#4f7a45"></i>MC-100 · 326</span><span><i style="background:#b8431f"></i>MC-1000 · 1 224</span></div>
+    <table class="t grow">
+      <thead><tr><th></th><th class="r">MC-10</th><th class="r">MC-100</th><th class="r">MC-1000</th></tr></thead>
+      <tbody>
+        <tr style="--r:0"><td>HSI au débit demandé (DL)</td><td class="r">54 %</td><td class="r">41 %</td><td class="r red"><b>14 %</b></td></tr>
+        <tr style="--r:1"><td>débit DL médian</td><td class="r">973 kbps</td><td class="r">792 kbps</td><td class="r red"><b>259 kbps</b></td></tr>
+      </tbody>
+    </table>
+    <figure class="ev" data-a style="--i:4;height:120px;width:260px;flex:none"><img src="assets/atoll/mc_stats.png" alt="Statistiques Monte-Carlo Atoll" style="--pos:50% 62%"><figcaption>Atoll · rejets par cause</figcaption></figure>
+  </div>
+  <aside class="notes"><b>DCFI</b> = fonction de distribution cumulative inverse&nbsp;: P(débit ≥ x). Lecture&nbsp;: on choisit un débit x sur l'axe horizontal, la courbe donne la part des utilisateurs qui l'obtiennent. Les trois courbes partent de ≈ 90 % à x = 0&nbsp;: environ 10 % des utilisateurs sont rejetés quel que soit le nombre. Les courbes sont tracées à partir des débits utilisateur exportés d'Atoll (onglet Mobiles), 1 point par utilisateur tiré.</aside>
+</section>
+
+<section class="slide" id="s-dcfi2" data-section="Monte-Carlo" data-req="P-4 L-11">
+  <h2 data-a style="--i:0">Ce que la DCFI dit au dimensionnement</h2>
+  <div class="row mt-l" style="gap:56px">
+    <div class="grow col" style="gap:14px">
+      <div class="fig l red" data-a style="--i:1">≈ 10 %</div>
+      <h3 data-a style="--i:1">rejetés, quel que soit le trafic</h3>
+      <p data-a style="--i:2">Tous « pas de couverture » ou « pas de service », <b>zéro saturation</b>. Le problème est le signal dans la campagne loin des sites et derrière le massif, pas la capacité. C'est la cible de l'optimisation.</p>
+    </div>
+    <div class="grow col" style="gap:14px">
+      <div class="fig l" data-a style="--i:3">973 → 259</div>
+      <h3 data-a style="--i:3">kbps médians en DL, de 10 à 1 000 utilisateurs</h3>
+      <p data-a style="--i:4">Le DL se dégrade avec la charge&nbsp;: interférence et partage des ressources. Le service est « best effort »&nbsp;: on ne rejette pas, on donne moins. <b>Le DL est limité par la capacité.</b></p>
+    </div>
+    <div class="grow col" style="gap:14px">
+      <div class="fig l slate" data-a style="--i:5">≈ stable</div>
+      <h3 data-a style="--i:5">courbes UL superposées</h3>
+      <p data-a style="--i:6">La charge ne change rien en UL&nbsp;: la limite est la puissance du téléphone. <b>L'UL est limité par la couverture</b>, comme le bilan de liaison l'annonçait (2 dB sous le DL).</p>
+    </div>
+  </div>
+  <div class="rule mt-l"></div>
+  <p class="mt" data-a style="--i:7;max-width:90ch">Impact sur la capacité&nbsp;: la demande de l'Étape 1 (225 Mbps en ville) se situe entre MC-100 et MC-1000. L'objectif de 1 Mbps tient pour <b>quelques centaines d'utilisateurs simultanés</b>&nbsp;; au-delà, il faut de la capacité (une deuxième porteuse, des petites cellules), pas plus de couverture.</p>
+  <aside class="notes">C'est la diapo de synthèse demandée (<b>P-4</b>). Trois lectures&nbsp;: (1) le plateau de rejet constant = problème de couverture&nbsp;; (2) le DL qui s'effondre avec la charge = capacité&nbsp;; (3) l'UL plat = limite de puissance du terminal. Cela confirme deux résultats de l'Étape 1&nbsp;: la liaison montante limite la couverture, et 5 sites suffisent en capacité aujourd'hui (aucune saturation même à 1 000 utilisateurs).</aside>
+</section>
+
+<!-- =================================================================== 6. OPTIMISATION -->
+
+<section class="slide" id="s-diag" data-section="Optimisation" data-req="A-7 A-8">
+  <div class="row">
+    <div class="map" style="--size:680px" data-layers="gaps_sansR02.png" data-sites="noR02" data-ghost="R02" data-labels="1" data-co='[["so","1"],["est","2"],["se","3"]]' data-a></div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Le diagnostic avant d'agir</h2>
+      <p class="lead" data-a style="--i:1">Méthode&nbsp;: une seule action à la fois, mesurée par le même script sur les rasters Atoll, gardée ou annulée.</p>
+      <table class="t mt">
+        <thead><tr><th>Trou rural</th><th class="r">Surface</th><th class="r">Habitants</th></tr></thead>
+        <tbody>
+          <tr style="--r:0" data-hover="so"><td><b>1</b> · Coin sud-ouest, derrière le massif</td><td class="r">4,84 km²</td><td class="r">128</td></tr>
+          <tr style="--r:1" data-hover="est"><td><b>2</b> · Pied est de la crête</td><td class="r">3,25 km²</td><td class="r">144</td></tr>
+          <tr style="--r:2" data-hover="se"><td><b>3</b> · Sud-est</td><td class="r">1,81 km²</td><td class="r">198</td></tr>
+          <tr style="--r:3"><td>Poches ouest et nord-ouest</td><td class="r">2,09 km²</td><td class="r">52</td></tr>
+        </tbody>
+      </table>
+      <p class="mt" data-a style="--i:6">Pour atteindre 95 %, au plus 3,85 km² peuvent rester découverts&nbsp;: il faut regagner <b>≈ 9 km²</b>. En ville, l'ennemi est l'<b>interférence</b>&nbsp;: recouvrement et tilt trop faible.</p>
+    </div>
+  </div>
+  <aside class="notes">On a écrit un petit script qui lit chaque export Atoll et calcule la couverture par zone (urbaine indoor, rurale outdoor, en surface et en population). Il produit cette carte des trous. Avantage&nbsp;: <b>chaque action est mesurée de la même façon</b>, ce qui rend les avant / après comparables. Les positions des trous guident les actions&nbsp;: on ne déplace pas un site au hasard.</aside>
+</section>
+
+<section class="slide" id="s-a1" data-section="Optimisation" data-req="L-12">
+  <h2 data-a style="--i:0">Actions 1 et 2&nbsp;: resserrer la ville</h2>
+  <div class="row mt">
+    <div class="grow col">
+      <h3 data-a style="--i:1">1 · Tilt urbain de 4° à 6°</h3>
+      <svg class="chart mt-s" style="width:100%;height:auto" data-tilt="1"></svg>
+      <p class="small" data-a style="--i:2">Lobe vertical mesuré dans Atoll&nbsp;: 6,3° à −3 dB, seulement 4,1 dB d'atténuation à l'horizon. Tilt idéal&nbsp;: atan(30/640) + 3,4° ≈ 6,1°.</p>
+      <table class="t mt-s">
+        <tbody>
+          <tr style="--r:0"><td>Surface à ≥ 4 serveurs</td><td class="r">2,39 → <b>1,45 km²</b></td><td><span class="v yes">−39 %</span></td></tr>
+          <tr style="--r:1"><td>C/(I+N) ≥ −1 dB (charge 100 %)</td><td class="r">13,1 → <b>14,6 km²</b></td><td><span class="v yes">+11 %</span></td></tr>
+          <tr style="--r:2"><td>Couverture urbaine indoor</td><td class="r">99,5 → 99,4 %</td><td><span class="v yes">gardée</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="width:520px" class="col">
+      <h3 data-a style="--i:3">2 · Éteindre R02</h3>
+      <div class="map mt-s" style="--size:300px" data-layers="" data-sites="noR02" data-ghost="R02" data-labels="1" data-chrome="0" data-a></div>
+      <p class="small mt-s" data-a style="--i:4">R02 était à 300 m de U02&nbsp;: un reste de la grille régulière. Désactivé (pas supprimé, pour garder les simulations).</p>
+      <table class="t mt-s">
+        <tbody>
+          <tr style="--r:0"><td>Couverture urbaine / rurale</td><td class="r">99,4 % / 83,1 %</td><td><span class="v yes">inchangée</span></td></tr>
+          <tr style="--r:1"><td>Surface à ≥ 2 serveurs</td><td class="r">−5 %</td><td><span class="v yes">gardée</span></td></tr>
+          <tr style="--r:2"><td><b>Sites</b></td><td class="r"><b>20 → 19</b></td><td><span class="v yes">−1 site</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <aside class="notes"><b>Tilt</b>&nbsp;: avec 4°, le haut du lobe touche le sol à 2,9 km, cinq fois notre rayon&nbsp;: chaque secteur arrose ses voisins. À 6°, il touche le sol à 0,66 km, juste au bord de la cellule. On ajoute 2° de tilt mécanique au tilt électrique de 4° de l'antenne. <b>R02</b>&nbsp;: le gain radio est faible, mais on économise un site entier (pylône, équipements, loyer, énergie) sans perdre un point de couverture. On n'a pas éteint R01&nbsp;: le Monte-Carlo montre que R01_1 est la cellule la plus chargée du réseau (le village nord-ouest).</aside>
+</section>
+
+<section class="slide" id="s-a3" data-section="Optimisation" data-req="L-12">
+  <h2 data-a style="--i:0">Actions 3 et 3b&nbsp;: deux idées mesurées, puis rejetées</h2>
+  <div class="row mt">
+    <div class="grow col">
+      <svg class="chart" style="width:100%;height:auto" data-profile="1"></svg>
+      <p class="small mt-s" data-a style="--i:1">Profil réel du MNT entre R07 et le coin sud-ouest (2,4 km). La ligne pointillée relie l'antenne au mobile&nbsp;: la crête la coupe.</p>
+    </div>
+    <div style="width:470px" class="col">
+      <table class="t">
+        <thead><tr><th>Action</th><th class="r">Rural outdoor</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr style="--r:0"><td>Avant (R02 éteint)</td><td class="r">83,1 %</td><td></td></tr>
+          <tr style="--r:1"><td><b>3</b> · déplacer R07 dans le coin sud-ouest</td><td class="r">82,7 %</td><td><span class="v no">rejetée</span></td></tr>
+          <tr style="--r:2"><td><b>3b</b> · garder R07, azimuts 30 / 190 / 290°</td><td class="r">82,4 %</td><td><span class="v no">rejetée</span></td></tr>
+        </tbody>
+      </table>
+      <div class="stat mt" data-a style="--i:4"><div class="k">Ce que l'on apprend</div>
+        <p class="small"><b>3</b>&nbsp;: déplacé à 392 m, R07 couvre le coin mais ne voit plus la plaine ouest qu'il servait depuis ses 503 m.<br><b>3b</b>&nbsp;: comparaison pixel par pixel&nbsp;: 0,01 km² gagné dans le coin. Aucun azimut ne passe la crête&nbsp;: c'est une <b>ombre du relief</b>.</p></div>
+      <p class="mt" data-a style="--i:5"><b>Conclusion</b>&nbsp;: R07 reste où il est, et le coin sud-ouest ne peut être servi que <b>de l'intérieur</b>.</p>
+    </div>
+  </div>
+  <aside class="notes">Point fort à défendre&nbsp;: <b>une action à la fois, mesurée, permet de prouver qu'une idée est mauvaise</b> et de revenir en arrière. Le profil vient du MNT&nbsp;: R07 est à 503 m, la crête monte à 807 m entre lui et le coin (389 m). Atoll calcule cette obstruction grâce à l'option diffraction du modèle Cost-Hata. Ces deux échecs justifient l'action suivante&nbsp;: ajouter un site dans le coin.</aside>
+</section>
+
+<section class="slide" id="s-a4" data-section="Optimisation" data-req="L-12">
+  <div class="row">
+    <div class="map compare" style="--size:680px" data-layer-a="gaps_sansR02.png" data-sites-a="noR02" data-layer-b="gaps_R12.png" data-sites-b="final" data-new="R11,R12" data-labels="1" data-tl="AVANT · 83,1 %" data-tr="APRÈS · 90,3 %" data-a></div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Actions 4 et 5&nbsp;: deux sites là où le relief l'exige</h2>
+      <p class="lead" data-a style="--i:1">On déplace le budget de R02 vers le coin sud-ouest (R11), puis on ajoute R12 au pied est de la crête.</p>
+      <table class="t mt">
+        <thead><tr><th>Action</th><th class="r">Rural (surface)</th><th class="r">Rural (pop.)</th><th class="r">Sites</th></tr></thead>
+        <tbody>
+          <tr style="--r:0"><td>Avant</td><td class="r">83,1 %</td><td class="r">95,2 %</td><td class="r">19</td></tr>
+          <tr style="--r:1"><td><b>4</b> · + R11, sud-ouest (391 m)</td><td class="r">87,1 %</td><td class="r">95,8 %</td><td class="r">20</td></tr>
+          <tr class="hl" style="--r:2"><td><b>5</b> · + R12, pied est (≈ 430 m)</td><td class="r"><b>90,3 %</b></td><td class="r"><b>96,6 %</b></td><td class="r"><b>21</b></td></tr>
+        </tbody>
+      </table>
+      <div class="stat mt" data-a style="--i:5"><div class="k">Le chiffre à retenir</div><p><b>21 sites, le nombre prévu par l'Étape 1</b>, mais pas aux mêmes endroits&nbsp;: le calcul donne le bon nombre, la simulation donne les bonnes positions.</p></div>
+      <p class="small mt-s" data-a style="--i:6">Faire glisser la poignée pour comparer. Ocre&nbsp;: sites ajoutés.</p>
+    </div>
+  </div>
+  <aside class="notes">Chaque site ajouté est placé au <b>centroïde du trou</b> mesuré sur le raster. R11&nbsp;: +4,0 points&nbsp;; R12&nbsp;: +3,2 points. Pourquoi s'arrêter là&nbsp;: il reste 4,7 points&nbsp;; le meilleur site suivant (sud-est) apporterait ≈ 2,3 points et il en faudrait ≈ 3 de plus pour ≈ 300 habitants dispersés, alors que la population rurale est déjà couverte à 96,6 %. Savoir s'arrêter fait partie du métier.</aside>
+</section>
+
+<section class="slide" id="s-acp" data-section="Optimisation" data-req="L-12 A-8 A-9">
+  <h2 data-a style="--i:0">Action 6&nbsp;: l'ACP règle 63 secteurs à la fois</h2>
+  <div class="row mt">
+    <div class="grow col">
+      <figure class="ev" data-a style="--i:1;height:300px"><img src="assets/atoll/acp_secteurs.png" alt="ACP secteurs" style="--pos:50% 30%"><figcaption>ACP · changements proposés par secteur</figcaption></figure>
+      <p class="small mt-s" data-a style="--i:2">Objectifs&nbsp;: RSRP ≥ −120 dBm sur 95 % et RSRQ ≥ −15 dB sur 85 %&nbsp;; tilt électrique 0–10°, azimut ±20°, tilt mécanique 0–5°&nbsp;; sélection de sites désactivée.</p>
+    </div>
+    <div style="width:560px" class="col">
+      <table class="t">
+        <thead><tr><th></th><th class="r">Avant ACP</th><th class="r">Après</th></tr></thead>
+        <tbody>
+          <tr style="--r:0"><td>Rural outdoor</td><td class="r">90,3 %</td><td class="r"><b class="red">94,3 %</b></td></tr>
+          <tr style="--r:1"><td>Rural, population</td><td class="r">96,6 %</td><td class="r"><b>97,9 %</b></td></tr>
+          <tr style="--r:2"><td>Urbain indoor</td><td class="r">99,4 %</td><td class="r"><b>99,7 %</b></td></tr>
+        </tbody>
+      </table>
+      <p class="mt" data-a style="--i:4">Ce qu'il fait&nbsp;: <b>relever</b> les secteurs ruraux (tilt 2° → 0°) pour porter plus loin, et <b>baisser ou tourner</b> ceux qui débordent chez leurs voisins.</p>
+      <p class="small mt-s" data-a style="--i:5">ACP annonce +4,3 points sur sa zone de calcul de 240 km²&nbsp;; nous mesurons +4,0 points sur nos 100 km². On ne lui fait pas confiance&nbsp;: <b>chaque proposition est revérifiée par nos propres prédictions</b>.</p>
+      <div class="row mt" style="gap:24px">
+        <div class="stat" data-a style="--i:6"><div class="k">7 · tilt urbain 8°</div><p class="small">ville +1,2 pt en DL, campagne −0,1 pt&nbsp;: <span class="v no">rejeté</span>, le tilt est à son optimum</p></div>
+        <div class="stat" data-a style="--i:7"><div class="k">8 · ANR</div><p class="small">listes de voisins&nbsp;: 3 à 6 par cellule, relations symétriques, marge 5 dB</p></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">L'<b>ACP</b> (Automatic Cell Planning) essaie des milliers de combinaisons de tilts et d'azimuts. Piège évité&nbsp;: par défaut, son seuil RSRP était −105 dBm&nbsp;; on l'a remis à −120 dBm, notre critère. Son « 21,7 % initial » s'explique&nbsp;: il évalue sur toute la zone de calcul Atoll (96 100 pixels de 50 m = 240 km²), surtout hors de nos cartes. Son gain relatif (+4,3) correspond à celui que nous mesurons (+4,0). L'<b>ANR</b> crée les listes de voisins (handover) avec la même marge de 5 dB que la carte de recouvrement.</aside>
+</section>
+
+<section class="slide" id="s-synthese" data-section="Optimisation" data-req="L-12 P-5">
+  <h2 data-a style="--i:0">L'optimisation fait passer la campagne de 83 % à 94 %</h2>
+  <div class="row mt">
+    <div class="grow">
+      <svg class="chart" style="width:100%;height:auto" data-progress="1"></svg>
+      <div class="legend mt-s" data-a style="--i:1"><span><i class="dot" style="background:#2e5b3c"></i>action gardée</span><span><i class="dot" style="border:2.5px solid #b8431f"></i>action rejetée, mesurée puis annulée</span></div>
+    </div>
+    <div style="width:400px" class="col">
+      <div class="stat" data-a style="--i:2"><div class="k">Rural outdoor</div><div class="fig m"><span class="muted" style="font-size:.6em;text-decoration:line-through">83,4</span> <span class="red" data-count="94.3" data-from="83.4">94,3</span><span class="u">%</span></div></div>
+      <div class="stat mt" data-a style="--i:3"><div class="k">Urbain indoor</div><div class="fig m"><span class="muted" style="font-size:.6em;text-decoration:line-through">99,5</span> <span data-count="99.7" data-from="99.5">99,7</span><span class="u">%</span></div></div>
+      <div class="stat mt" data-a style="--i:4"><div class="k">Rejetés, MC-1000 (mêmes utilisateurs)</div><div class="fig m"><span class="muted" style="font-size:.6em;text-decoration:line-through">10,8</span> <span data-count="7.7" data-from="10.8">7,7</span><span class="u">%</span></div></div>
+      <div class="stat mt" data-a style="--i:5"><div class="k">Débit DL servi, MC-1000</div><div class="fig m"><span class="muted" style="font-size:.6em;text-decoration:line-through">257</span> <span data-count="281" data-from="257" data-dec="0">281</span><span class="u">Mbps</span></div></div>
+    </div>
+  </div>
+  <aside class="notes">Le résumé de L-12 en une image. Huit actions&nbsp;: cinq gardées (tilt, R02, R11, R12, ACP), trois rejetées (R07 déplacé, R07 réorienté, tilt 8°), plus l'ANR. Le Monte-Carlo final a été relancé avec la même graine&nbsp;: <b>les mêmes 2 104 utilisateurs</b> sont tirés avant et après, donc la comparaison est exacte. Les « pas de couverture » sont divisés par deux (26,6 → 12,9).</aside>
+</section>
+
+<section class="slide" id="s-final" data-section="Optimisation" data-req="L-12 L-11 P-5">
+  <div class="row">
+    <div class="map compare" style="--size:680px" data-layer-a="gaps_initial.png" data-sites-a="init" data-layer-b="gaps_acp.png" data-sites-b="final" data-labels="1" data-new="R11,R12" data-tl="INITIAL · 83,4 %" data-tr="FINAL · 94,3 %" data-a></div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Réseau final&nbsp;: mêmes utilisateurs, meilleur service</h2>
+      <svg class="chart mt" style="width:100%;height:auto" data-dcfi='{"key":"dl","target":1024,"W":640,"H":330,"marks":false,"series":[{"k":"MC1000","c":"#4f7a45"},{"k":"MC1000_final","c":"#b8431f","w":3.2}]}'></svg>
+      <div class="legend mt-s" data-a style="--i:2"><span><i style="background:#4f7a45"></i>MC-1000, réseau initial</span><span><i style="background:#b8431f"></i>MC-1000, réseau final</span><span>DL, utilisateurs HSI</span></div>
+      <p class="mt" data-a style="--i:3">Toute la courbe monte d'environ 4 points&nbsp;: rejetés 10,5 → 6,7 % dans l'échantillon, HSI au débit demandé 13,8 → 16,8 %. La médiane reste à 259 kbps&nbsp;: à 1 000 utilisateurs, la limite est la <b>capacité</b>, que la couverture ne règle pas.</p>
+    </div>
+  </div>
+  <aside class="notes">À gauche, la carte des trous initiale contre la finale (poignée à faire glisser). À droite, la DCFI du Monte-Carlo à 1 000 utilisateurs, avant et après, sur exactement les mêmes utilisateurs. L'optimisation a réglé la couverture (plateau de rejet plus haut, courbe décalée vers le haut), pas la capacité (médiane identique)&nbsp;: c'est cohérent avec la DCFI de la section précédente.</aside>
+</section>
+
+<section class="slide" id="s-mcafter" data-section="Optimisation" data-req="L-12 L-11 A-6" data-steps="3">
+  <div class="row">
+    <div class="map" style="--size:680px" data-sites="none" data-dim="1" data-mcab="1" data-a>
+      <svg class="vec chart mcu" viewBox="0 0 100 100" data-users2="1"></svg>
+      <div class="ucard" data-ucard></div>
+      <span class="mtag" data-mtag>RÉSEAU INITIAL · 20 sites</span>
+    </div>
+    <div class="grow col">
+      <h2 data-a style="--i:0">Les mêmes 1 041 personnes, sur le réseau final</h2>
+      <p class="small mt-s" data-a style="--i:1">Même graine de tirage&nbsp;: Atoll replace exactement les mêmes utilisateurs, au même endroit, avec le même service. Seul le réseau change. Survoler un point pour voir sa cellule avant et après.</p>
+      <div class="mx mt" data-a style="--i:2">
+        <div class="hd"></div><div class="hd" data-c="1">connecté sur le réseau final</div><div class="hd" data-c="1">rejeté sur le réseau final</div>
+        <div class="rh">connecté au départ<b data-t-okA>933</b></div>
+        <div class="cell k" data-c="2" data-t="k"><i class="ic"></i><b data-t-k>918</b><span>restent connectés</span></div>
+        <div class="cell l" data-c="2" data-t="l"><i class="ic"></i><b data-t-l>15</b><span>perdus&nbsp;: leur C/(I+N) passe sous −1 dB (nouveaux voisins, réglages ACP)</span></div>
+        <div class="rh">rejeté au départ<b data-t-rejA>108</b></div>
+        <div class="cell s" data-c="1" data-t="s"><i class="ic"></i><b data-t-s>52</b><span>sauvés, servis par <b data-t-sites>18</b> sites différents</span></div>
+        <div class="cell r" data-c="2" data-t="r"><i class="ic"></i><b data-t-r>56</b><span>toujours rejetés</span></div>
+      </div>
+      <div class="mxsum" data-step="2"><div class="k">Tirage affiché<b><span data-t-rejA>108</span> → <span data-t-rejB>71</span></b><span>rejetés</span></div><div class="k">Moyenne des 20 tirages<b>10,8 → 7,7 %</b><span>rejetés</span></div><div class="k">Pas de couverture<b>26,6 → 12,9</b><span>utilisateurs, ÷ 2</span></div><div class="k">Débit DL servi<b>257 → 281</b><span>Mbps · saturation 0</span></div></div>
+      <p class="mt-s" data-step="3">Les <b data-t-rejB>71</b> restants&nbsp;: <b data-t-zr>46</b> dans la campagne isolée, <b data-t-zm>13</b> sur le massif (parc, sans objectif), <b data-t-zu>12</b> en ville, dont 11 à l'intérieur des bâtiments. Ces derniers relèvent de l'interférence entre sites urbains&nbsp;: le levier suivant est la coordination (ICIC) ou une deuxième porteuse, pas un site de plus.</p>
+    </div>
+  </div>
+  <aside class="notes">C'est la preuve que nos choix d'optimisation sont les bons, mesurée sur des personnes et pas seulement sur des cartes. Même graine (1)&nbsp;: Atoll tire exactement les mêmes 1 041 utilisateurs sur le réseau initial puis sur le réseau final (R02 éteint, R11 et R12 ajoutés, tilt urbain 6°, ACP). Avec →&nbsp;: (1) le réseau passe au final, les 52 rejetés qui deviennent connectés s'allument (anneau doré)&nbsp;; ils sont servis par 18 sites différents, donc c'est l'ensemble des actions qui joue, pas un seul site. (2) Honnêteté&nbsp;: 15 utilisateurs connectés au départ sont perdus, parce que leur C/(I+N) est passé sous −1 dB (les nouveaux sites et les réglages ACP déplacent l'interférence). Bilan net&nbsp;: 108 → 71 rejetés dans ce tirage, et sur la moyenne des 20 tirages 10,8 → 7,7 %, avec « pas de couverture » divisé par deux. (3) Les 71 restants sont surtout dans la campagne isolée et sur le massif&nbsp;; en ville, ce sont des utilisateurs à l'intérieur gênés par l'interférence, que le tilt ne règle plus (action 7 rejetée).</aside>
+</section>
+
+<!-- =================================================================== 7. BILAN -->
+
+<section class="slide" id="s-compare" data-section="Bilan" data-req="P-6">
+  <h2 data-a style="--i:0">Étape 1 contre Étape 2&nbsp;: ce que la simulation confirme, et ce qu'elle corrige</h2>
+  <table class="t mt">
+    <thead><tr><th>Grandeur</th><th>Étape 1 · analytique</th><th>Étape 2 · Atoll</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr style="--r:0"><td><b>Nombre de sites</b></td><td>21</td><td>21, positions différentes (− R02, + R11, + R12)</td><td><span class="v yes">confirmé</span></td></tr>
+      <tr style="--r:1"><td><b>Couverture urbaine indoor</b></td><td>objectif 95 %</td><td>99,7 %</td><td><span class="v yes">atteint</span></td></tr>
+      <tr style="--r:2"><td><b>Couverture rurale outdoor</b></td><td>objectif 95 %</td><td>94,3 % de la surface · 97,9 % de la population</td><td><span class="v mid">−0,7 pt</span></td></tr>
+      <tr style="--r:3"><td><b>Liaison limitante</b></td><td>montante, 2 dB sous la descendante</td><td>DCFI UL plate&nbsp;: limite de puissance du terminal</td><td><span class="v yes">confirmé</span></td></tr>
+      <tr style="--r:4"><td><b>Capacité</b></td><td>5 sites suffisent aujourd'hui</td><td>0 saturation, même à 1 000 utilisateurs</td><td><span class="v yes">confirmé</span></td></tr>
+      <tr style="--r:5"><td><b>Interférence (K = 1)</b></td><td>8,4 % de la cellule idéale sous −1 dB</td><td>ville&nbsp;: 79 % ≥ −1 dB sous charge simulée</td><td><span class="v no">optimiste</span></td></tr>
+      <tr style="--r:6"><td><b>Rayon de cellule</b></td><td>cercles réguliers de 0,64 / 2,06 km</td><td>ombres du relief&nbsp;: coin sud-ouest, pied est</td><td><span class="v mid">relief ignoré</span></td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">La diapo la plus importante pour la note (<b>P-6</b>). Pourquoi les écarts&nbsp;: Hata ne voit pas le relief (Atoll ajoute la diffraction)&nbsp;; l'hexagone idéal suppose des voisins réguliers, à plat, alors que le vrai réseau a des sites perchés qui débordent&nbsp;; la marge d'ombrage est appliquée au C/I dans Atoll, pas dans notre calcul. Ce qui tient&nbsp;: le nombre de sites, la liaison limitante, la capacité.</aside>
+</section>
+
+<section class="slide" id="s-limites" data-section="Bilan" data-req="P-6">
+  <h2 data-a style="--i:0">Limites de l'étude et prochaines étapes</h2>
+  <div class="row mt-l" style="gap:64px">
+    <div class="grow col" style="gap:22px">
+      <h3 data-a style="--i:1">Limites</h3>
+      <p data-a style="--i:2"><b>Modèle non calibré</b>&nbsp;: pas de mesures terrain pour ajuster Cost-Hata&nbsp;; σ = 6 à 8 dB sur chaque pixel, plus que les 0,7 point qui manquent.</p>
+      <p data-a style="--i:3"><b>Critère C/I sévère</b>&nbsp;: la marge d'ombrage de 86 % s'applique aussi au C/(I+N)&nbsp;; sans elle la carte est bien meilleure.</p>
+      <p data-a style="--i:4"><b>Ordonnanceur Atoll</b>&nbsp;: même avec 10 utilisateurs, 46 % des HSI n'ont pas 1 Mbps alors qu'ils sont seuls dans leur cellule&nbsp;; règle interne non expliquée.</p>
+      <p data-a style="--i:5"><b>Trafic modélisé</b>&nbsp;: 1 habitant = 1 utilisateur potentiel, mix de services supposé.</p>
+    </div>
+    <div class="grow col" style="gap:22px">
+      <h3 data-a style="--i:6">Pour aller plus loin</h3>
+      <p data-a style="--i:7"><b>Coordination d'interférence (ICIC)</b> pour les bords de cellule urbains.</p>
+      <p data-a style="--i:8"><b>Une couche 800 MHz</b> sur les sites existants&nbsp;: plus de portée en campagne et en indoor.</p>
+      <p data-a style="--i:9"><b>Petites cellules</b> dans le centre quand le trafic aura doublé (+40 % tous les 2 ans).</p>
+      <p data-a style="--i:10"><b>Campagne de mesures</b> pour calibrer le modèle avant tout déploiement.</p>
+    </div>
+  </div>
+  <aside class="notes">Rester honnête&nbsp;: l'objectif rural en surface n'est pas atteint (94,3 %), mais l'écart est plus petit que l'incertitude du modèle, et la population est couverte à 97,9 %. Le DL urbain à 79 % est structurel (réutilisation 1, sites à 1 km, critère d'ombrage)&nbsp;: le tilt a atteint son optimum (action 7). Les leviers suivants ne sont plus des réglages d'antenne mais de l'architecture&nbsp;: ICIC, deuxième bande, petites cellules.</aside>
+</section>
+
+<section class="slide title" id="s-end" data-section="Bilan" data-req="">
+  <div class="three" data-opts='{"sites":"final","newSites":["R11","R12"],"radius":160,"angle":3.9}'></div>
+  <div class="fade-l"></div>
+  <div class="content">
+    <h1 data-a style="--i:0">Merci.<br><em>Vos questions.</em></h1>
+    <div class="col mt-l" style="gap:18px">
+      <div class="stat" data-a style="--i:1"><div class="fig m">21 <span class="u">sites, comme prévu par le calcul</span></div></div>
+      <div class="stat" data-a style="--i:2"><div class="fig m">99,7 % <span class="u">de la ville couverte en indoor</span></div></div>
+      <div class="stat" data-a style="--i:3"><div class="fig m">83 → 94 % <span class="u">de la campagne après optimisation</span></div></div>
+    </div>
+    <div class="who" data-a style="--i:4">
+      <div><span>Binôme</span>Youssef Hamdani · Rayen Hamza</div>
+      <div><span>Encadrante</span>Dr Mériem Afif</div>
+    </div>
+  </div>
+  <aside class="notes">Conclure en une phrase&nbsp;: « Le calcul analytique nous a donné le bon nombre de sites, la simulation nous a donné les bons emplacements, et chaque décision d'optimisation a été mesurée. » Puis ouvrir aux questions.</aside>
+</section>
+
+</div></div>
+
+<div class="lightbox" id="lightbox"><img alt="Capture Atoll agrandie" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="></div>
+<div class="notes-panel" id="notes"></div>
+
+<script src="vendor/three.min.js"></script>
+<script src="data.js"></script>
+<script src="deck.js"></script>
+</body>
+</html>

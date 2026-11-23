@@ -1,0 +1,83 @@
+\chapter{Coordonnées des sites}
+\label{ann-sites}
+
+Coordonnées en UTM 32N (EPSG:32632). Les 20 sites du plan nominal sont issus de l'Étape 1 ; l'altitude est lue sur notre MNT. Le réseau final retire R02 et ajoute R11 et R12. Tous les sites ont un mât de \SI{30}{\metre} et trois secteurs ; les azimuts nominaux (\ang{0}, \ang{120}, \ang{240}) et les tilts ont ensuite été ajustés par l'optimisation.
+
+\begin{table}[H]
+\centering
+\caption{Sites du réseau.}
+\label{tab-coords}
+\small
+\begin{tabular}{@{}lrrrl@{\hspace{2.5em}}lrrrl@{}}
+\toprule
+\thead{Site} & \thead{X (m)} & \thead{Y (m)} & \thead{Alt.} & \thead{Final} & \thead{Site} & \thead{X (m)} & \thead{Y (m)} & \thead{Alt.} & \thead{Final} \\
+\midrule
+U01 & 596\,963 & 4\,030\,684 & 161 & oui & R01 & 597\,545 & 4\,030\,455 & 173 & oui \\
+U02 & 600\,817 & 4\,030\,684 & 155 & oui & R02 & 600\,634 & 4\,030\,455 & 162 & \textcolor{terre}{retiré} \\
+U03 & 601\,780 & 4\,030\,684 & 146 & oui & R03 & 603\,724 & 4\,030\,455 & 128 & oui \\
+U04 & 602\,744 & 4\,030\,684 & 131 & oui & R04 & 599\,090 & 4\,027\,780 & 270 & oui \\
+U05 & 602\,262 & 4\,029\,850 & 152 & oui & R05 & 602\,179 & 4\,027\,780 & 283 & oui \\
+U06 & 603\,225 & 4\,029\,850 & 145 & oui & R06 & 605\,269 & 4\,027\,780 & 164 & oui \\
+U07 & 601\,780 & 4\,029\,015 & 195 & oui & R07 & 597\,545 & 4\,025\,104 & 503 & oui \\
+U08 & 602\,744 & 4\,029\,015 & 178 & oui & R08 & 603\,724 & 4\,025\,104 & 393 & oui \\
+U09 & 601\,299 & 4\,028\,181 & 241 & oui & R09 & 602\,179 & 4\,022\,428 & 419 & oui \\
+U10 & 603\,225 & 4\,028\,181 & 235 & oui & R10 & 605\,269 & 4\,022\,428 & 401 & oui \\
+ & & & & & R11 & 597\,240 & 4\,023\,060 & 391 & \textcolor{or!80!black}{ajouté} \\
+ & & & & & R12 & 603\,230 & 4\,026\,200 & $\approx$ 430 & \textcolor{or!80!black}{ajouté} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\chapter{Preuves et fichiers du projet}
+\label{ann-preuves}
+
+Le projet complet (calculs, cartes, projet Atoll, exports et présentation) est disponible en ligne :
+\begin{itemize}
+  \item dépôt : \url{https://github.com/Jozziiff/Atoll-Project-Zaghouan} ;
+  \item présentation interactive : \url{https://jozziiff.github.io/Atoll-Project-Zaghouan/}.
+\end{itemize}
+
+\section*{Livrables Atoll (dossier \texttt{04-atoll/exports/})}
+
+\begin{table}[H]
+\centering
+\caption{Correspondance entre les livrables du sujet (§\,4.2) et le rapport.}
+\label{tab-livrables}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}p{0.17\textwidth}Lp{0.17\textwidth}p{0.2\textwidth}@{}}
+\toprule
+\thead{Livrable} & \thead{Contenu} & \thead{Dans ce rapport} & \thead{Fichiers} \\
+\midrule
+Niveau de signal & prédiction C/(I+N) et niveau de signal, histogramme, légende & \cref{sec-signal,sec-cinr} & \texttt{L-01*}, \texttt{L-02*} \\
+Émetteur / recouvrement & prédiction par émetteur, histogramme de recouvrement, légende & \cref{sec-recouvrement} & \texttt{L-04*}, \texttt{L-05*} \\
+Débit & débits DL et UL, légende, comparaison aux cibles & \cref{sec-debits,sec-charge} & \texttt{L-07*}, \texttt{L-08*} \\
+Monte-Carlo & DCFI 10, 100 et \num{1000} utilisateurs & \cref{sec-dcfi} & \texttt{L-11*}, \texttt{dcfi*.md} \\
+Optimisation & avant / après et justification de chaque action & \cref{ch-opt} & \texttt{trous\_*},\newline \texttt{couverture\_*} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section*{Captures des réglages d'Atoll (dossier \texttt{04-atoll/captures/})}
+
+Les captures sont nommées par séance de travail : \texttt{S01} import des cartes et modèles (coordonnées, MNT, occupation du sol, population, modèles de station, Cost-Hata, bearers, seuils) ; \texttt{S02} construction du réseau (valeurs par classe, table des sites et des émetteurs, correction de la population) ; \texttt{S03} prédictions (types disponibles, conditions, champs affichés, table des cellules, diagramme d'antenne) ; \texttt{S04} trafic et Monte-Carlo (carte de trafic, paramètres des simulations, statistiques, charges des cellules) ; \texttt{S05} optimisation (désactivation de R02, déplacement de R07, paramètres et résultats de l'ACP et de l'ANR).
+
+\section*{Scripts}
+
+\begin{table}[H]
+\centering
+\caption{Scripts du projet.}
+\label{tab-scripts}
+\small
+\begin{tabularx}{\textwidth}{@{}lL@{}}
+\toprule
+\thead{Script} & \thead{Rôle} \\
+\midrule
+\texttt{02-dimensionnement/params.py} & tableau d'hypothèses sous forme de code, source unique des valeurs \\
+\texttt{02-dimensionnement/calc.py} & Étape 1 complète : marges, bilans, rayons, sites, capacité, réutilisation, plan nominal, 800 contre \SI{1800}{\mega\hertz} \\
+\texttt{03-cartes/scripts/make\_atoll\_maps.sh} & découpe, reprojection et mise au format Atoll des trois couches \\
+\texttt{04-atoll/analyse\_couverture.py} & couverture par zone (surface, population) à partir des rasters exportés d'Atoll \\
+\texttt{04-atoll/zones\_raster.py} & même mesure pour les cartes de C/(I+N) et de débit \\
+\texttt{04-atoll/dcfi.py} & DCFI à partir des débits de chaque utilisateur exportés des simulations \\
+\bottomrule
+\end{tabularx}
+\end{table}

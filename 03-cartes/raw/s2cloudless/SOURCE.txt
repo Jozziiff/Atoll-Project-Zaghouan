@@ -1,0 +1,4 @@
+Sentinel-2 cloudless 2021 by EOX IT Services GmbH (https://s2maps.eu), CC BY 4.0
+"Contains modified Copernicus Sentinel data 2021"
+Fetched 2026-11-23 via WMS https://tiles.maps.eox.at/wms (layer s2cloudless-2021), bbox EPSG:4326 10.06409,36.33266,10.18814,36.43297, 2048 px
+Reprojected to EPSG:32632, extent X 596000-606000, Y 4022000-4032000, 2048 x 2048 (cubic) -> S2cloudless2021_Zaghouan_utm32n.tif

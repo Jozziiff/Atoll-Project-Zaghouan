@@ -1,0 +1,54 @@
+\chapter{Introduction}
+\label{ch-intro}
+
+\section{Contexte}
+
+Un opérateur souhaite déployer un réseau 4G sur la ville de Zaghouan et sa campagne. Le sujet du mini-projet~\cite{afif2026sujet} nous place dans le rôle de l'ingénieur planification radio chargé de l'étude : établir le cahier des charges de l'interface radio, dimensionner le réseau, le construire et le vérifier dans l'outil de planification Atoll~\cite{atoll33}, l'optimiser, puis présenter le résultat à la direction.
+
+La zone d'étude est un carré de \num{10} × \SI{10}{\kilo\metre} (\SI{100}{\kilo\metre\squared}) qui contient trois milieux très différents : le centre urbain de Zaghouan, une campagne de prairies et de cultures parsemée de villages, et le Djebel Zaghouan, un massif boisé qui culmine à \SI{1238}{\metre} sur notre modèle de terrain. Nous avons choisi cette zone pour traiter les deux parties du dimensionnement demandées par le sujet, par la capacité en ville et par la couverture en campagne. Le relief y crée en plus des zones d'ombre radio, qui donnent matière à l'optimisation.
+
+\section{Objectifs}
+
+Le travail suit les deux étapes du sujet :
+\begin{enumerate}
+  \item \textbf{Étape 1, dimensionnement analytique :} norme, environnement, objectifs de couverture et de trafic ; bilan de liaison, rayon de cellule, nombre et position des sites ; capacité, motif de réutilisation et plan de fréquences.
+  \item \textbf{Étape 2, planification avec Atoll :} import du terrain, construction du réseau issu de l'Étape 1, prédictions de couverture et de débit, simulations Monte-Carlo pour 10, 100 et \num{1000} utilisateurs, comparaison aux objectifs, optimisation itérative.
+\end{enumerate}
+Le rapport se termine par une comparaison critique entre les résultats des deux étapes et par les limites de l'étude.
+
+\section{Démarche}
+
+La zone, la bande, le modèle de propagation et les hypothèses de trafic sont les mêmes dans l'Étape 1 et dans Atoll, ce qui permet de comparer les deux étapes à la fin. Toutes les valeurs d'entrée sont rassemblées dans un tableau d'hypothèses unique (\cref{ch-cdc}), repris par notre script de calcul et par la configuration d'Atoll. Pendant l'optimisation, chaque action est appliquée seule, mesurée avec le même script sur les rasters exportés d'Atoll, puis gardée ou annulée.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=5mm and 2mm,
+  box/.style={draw=foret,fill=mousse!50,rounded corners=2pt,align=center,font=\scriptsize,text width=26mm,minimum height=13mm,inner sep=3pt},
+  arr/.style={-{Stealth[length=2.2mm]},foret,thick}]
+  \node[box] (a) {\textbf{Cahier des charges}\\zone, norme,\\objectifs};
+  \node[box,right=of a] (b) {\textbf{Dimensionnement}\\bilan de liaison,\\$R$, sites, $K$};
+  \node[box,right=of b] (c) {\textbf{Atoll}\\cartes réelles,\\20 sites};
+  \node[box,right=of c] (d) {\textbf{Prédictions}\\signal, C/(I+N),\\débits};
+  \node[box,right=of d] (e) {\textbf{Monte-Carlo}\\10, 100, 1\,000\\utilisateurs};
+  \node[box,below=10mm of e,fill=or!15,draw=or] (f) {\textbf{Optimisation}\\une action\\à la fois};
+  \node[box,fill=white] (g) at (b |- f) {\textbf{Bilan}\\Étape 1 contre\\Étape 2};
+  \draw[arr] (a)--(b); \draw[arr] (b)--(c); \draw[arr] (c)--(d); \draw[arr] (d)--(e); \draw[arr] (e)--(f); \draw[arr] (f)--(g);
+  \draw[arr,or!80!black] (f.north west) to[bend left=25] node[pos=0.55,left,font=\tiny,text=gris,align=right]{chaque action\\est re-mesurée} (d.south);
+\end{tikzpicture}
+\caption{Démarche du projet.}
+\label{fig-demarche}
+\end{figure}
+
+\section{Outils et données}
+
+\begin{itemize}
+  \item \textbf{Atoll 3.3} (Forsk), module LTE~\cite{atoll33}, installé dans une machine virtuelle Windows.
+  \item \textbf{Données géographiques ouvertes :} relief Copernicus DEM GLO-30~\cite{copernicusdem}, occupation du sol ESA WorldCover 2021~\cite{worldcover2022}, population WorldPop 2020~\cite{worldpop2018}.
+  \item \textbf{Données de marché :} tableau de bord trimestriel de l'Instance Nationale des Télécommunications~\cite{intt2025tr4}.
+  \item \textbf{Scripts Python} (calcul de l'Étape 1, préparation des cartes, mesure de la couverture par zone sur les rasters d'Atoll, tracé des DCFI) ; ils sont fournis avec le projet.
+\end{itemize}
+
+\section{Organisation du rapport}
+
+Le \cref{ch-cdc} présente le cahier des charges. Le \cref{ch-dim} détaille le dimensionnement analytique. Le \cref{ch-atoll} décrit la construction du réseau dans Atoll, le \cref{ch-pred} les prédictions et le \cref{ch-mc} les simulations Monte-Carlo. Le \cref{ch-opt} présente la démarche d'optimisation, action par action. Le \cref{ch-disc} compare les deux étapes et discute les limites, avant la conclusion.

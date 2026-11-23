@@ -1,0 +1,12 @@
+\chapter{Conclusion}
+\label{ch-conclusion}
+
+Ce projet a suivi la démarche d'un ingénieur planification radio sur une zone réelle de \SI{100}{\kilo\metre\squared} autour de Zaghouan.
+
+Le dimensionnement analytique a fixé un réseau LTE en bande~3, avec une porteuse de \SI{20}{\mega\hertz} réutilisée dans toutes les cellules. Le bilan de liaison, limité par la liaison montante, donne un rayon de \SI{0,64}{\kilo\metre} en ville (indoor) et de \SI{2,06}{\kilo\metre} en campagne (outdoor). La couverture impose 21 sites tri-sectoriels ; la capacité n'en demanderait que 5 dans le centre aujourd'hui, mais en demanderait 11 dans cinq ans au rythme actuel de croissance du trafic.
+
+Construit dans Atoll sur le relief, l'occupation du sol et la population réels, ce réseau couvre la ville mais laisse des trous derrière le massif. Les simulations Monte-Carlo à 10, 100 et \num{1000} utilisateurs montrent que les rejets viennent tous du signal et jamais de la capacité, que le débit descendant se dégrade avec la charge et que la liaison montante est limitée par la puissance du terminal.
+
+Huit actions d'optimisation, mesurées une à une, ont porté la couverture rurale de \SI{83,4}{\percent} à \SI{94,3}{\percent} de la surface (\SI{97,9}{\percent} de la population) et maintenu la ville au-dessus de \SI{99}{\percent}. Trois actions ont été rejetées après mesure, et leurs échecs ont orienté les actions suivantes. Sur les mêmes utilisateurs simulés, les rejets ont baissé d'environ un tiers (de 108 à 71). Le réseau final compte 21 sites, le nombre prévu par le calcul.
+
+Le calcul analytique a donné le bon nombre de sites, et la simulation sur le terrain réel leurs bons emplacements. Les formules du cours (bilan équilibré, motif et rapport C/I, rendement et capacité) ont guidé chaque choix de l'Étape 1, et leurs limites, comme le pire cas de C/I en réutilisation~1, ont été vérifiées dans Atoll. Les écarts restants (0,7 point en campagne, interférence en ville) sont dans l'incertitude d'un modèle non calibré, ou demandent des changements d'architecture (coordination d'interférence, seconde couche de fréquence, petites cellules) plutôt que de nouveaux réglages d'antenne.

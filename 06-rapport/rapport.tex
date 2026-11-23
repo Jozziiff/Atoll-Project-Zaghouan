@@ -1,0 +1,152 @@
+% Rapport — Mini-projet 1 : dimensionnement et planification d'un réseau LTE à Zaghouan
+% Compilation : latexmk -pdf rapport.tex
+\documentclass[11pt,a4paper,oneside,openany]{report}
+
+% ---------- langue, polices ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\addto\captionsfrench{\renewcommand{\tablename}{Tableau}}
+\usepackage{lmodern}
+\usepackage{pdfpages}
+\usepackage{textcomp}
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{00B7}{\ensuremath{\cdot}}
+\DeclareUnicodeCharacter{00B1}{\ensuremath{\pm}}
+\usepackage{microtype}
+\usepackage{csquotes}
+
+% ---------- mise en page ----------
+\usepackage[a4paper,left=26mm,right=26mm,top=26mm,bottom=28mm,headsep=9mm,headheight=14pt,footskip=12mm]{geometry}
+\usepackage{xcolor}
+\definecolor{foret}{HTML}{2E5B3C}
+\definecolor{foret2}{HTML}{4F7A45}
+\definecolor{mousse}{HTML}{DFE7CB}
+\definecolor{eau}{HTML}{1F6485}
+\definecolor{terre}{HTML}{B8431F}
+\definecolor{or}{HTML}{C4922A}
+\definecolor{encre}{HTML}{15211A}
+\definecolor{gris}{HTML}{56634F}
+\definecolor{papier}{HTML}{F4F5EC}
+\linespread{1.08}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}{../04-atoll/exports/}{../04-atoll/captures/}{../02-dimensionnement/figures/}{../05-presentation/deck/assets/atoll/}}
+\usepackage{booktabs,tabularx,multirow,array,colortbl,longtable}
+\usepackage[font=small,labelfont=bf,labelsep=period,format=plain,justification=justified,singlelinecheck=true]{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\setlist{itemsep=0.15em,topsep=0.3em}
+\usepackage[locale=FR,per-mode=symbol,group-minimum-digits=4]{siunitx}
+\sisetup{range-phrase={ à },list-final-separator={ et }}
+\DeclareSIUnit\dBm{dBm}
+\DeclareSIUnit\dBi{dBi}
+\DeclareSIUnit\kbps{kbps}
+\DeclareSIUnit\Mbps{Mbps}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,calc,fit,backgrounds}
+\usepackage[most]{tcolorbox}
+
+% ---------- titres ----------
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}
+  {\large\chaptertitlename\ \thechapter}
+  {0.8em}
+  {\huge}[\vspace{0.3em}\titlerule]
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\bfseries}{}{0pt}{\huge}[\vspace{0.3em}\titlerule]
+\titlespacing*{\chapter}{0pt}{-12pt}{24pt}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{}{0em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.5em}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.35em}
+
+% ---------- en-têtes ----------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhead[L]{\small\itshape\leftmark}
+\fancyhead[R]{\small\itshape\rightmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% ---------- encadrés ----------
+\newtcolorbox{retenir}[1][Synthèse]{enhanced,breakable,colback=mousse!45,colframe=foret,boxrule=0pt,leftrule=3pt,arc=2pt,
+  left=10pt,right=10pt,top=6pt,bottom=6pt,fonttitle=\bfseries\small,coltitle=foret,colbacktitle=mousse!45,
+  title={#1},attach title to upper={\par\smallskip},before skip=10pt,after skip=10pt}
+\newtcolorbox{verdict}[1][Verdict]{enhanced,breakable,colback=or!10,colframe=or,boxrule=0pt,leftrule=3pt,arc=2pt,
+  left=10pt,right=10pt,top=6pt,bottom=6pt,fonttitle=\bfseries\small,coltitle=or!70!black,colbacktitle=or!10,
+  title={#1},attach title to upper={\par\smallskip},before skip=10pt,after skip=10pt}
+
+\newtcolorbox{cours}[1]{enhanced,breakable,colback=white,colframe=eau,boxrule=0.5pt,arc=1.5pt,
+  left=9pt,right=9pt,top=5pt,bottom=5pt,fonttitle=\bfseries\small,coltitle=white,colbacktitle=eau,
+  title={Rappel du cours : #1},segmentation style={dashed,eau!50,line width=0.4pt},
+  before skip=10pt,after skip=10pt}
+\newcommand{\application}{\tcblower\textbf{Dans notre projet.}\ }
+
+% ---------- tableaux ----------
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\renewcommand{\arraystretch}{1.18}
+\newcommand{\ok}{{\color{foret}\textbf{atteint}}}
+\newcommand{\ko}{{\color{terre}\textbf{non atteint}}}
+\newcommand{\gardee}{{\color{foret}\textbf{gardée}}}
+\newcommand{\rejetee}{{\color{terre}\textbf{rejetée}}}
+\newcommand{\thead}[1]{\bfseries\begin{tabular}[b]{@{}c@{}}#1\end{tabular}}
+
+% ---------- bibliographie, liens ----------
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{abbrvnat}
+\usepackage[hidelinks,pdfusetitle]{hyperref}
+\hypersetup{pdftitle={Réseau LTE Zaghouan — rapport du mini-projet 1},pdfauthor={Youssef Hamdani, Rayen Hamza},pdfsubject={Planification et optimisation des réseaux, RT5, INSAT}}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\crefname{figure}{figure}{figures}\crefname{table}{tableau}{tableaux}\crefname{chapter}{chapitre}{chapitres}
+\newcommand{\crefpairconjunction}{ et }\newcommand{\crefmiddleconjunction}{, }\newcommand{\creflastconjunction}{ et }\newcommand{\crefrangeconjunction}{ à }
+\crefname{section}{section}{sections}\crefname{equation}{équation}{équations}\crefname{appendix}{annexe}{annexes}
+
+\begin{document}
+
+% =====================================================================  PAGE DE GARDE
+\includepdf[pages=1]{page-de-garde.pdf}
+\setcounter{page}{1}
+
+\pagenumbering{roman}
+\include{chapitres/00-resume}
+\cleardoublepage
+{\hypersetup{linkcolor=encre}\tableofcontents}
+\cleardoublepage
+\listoffigures
+\listoftables
+\cleardoublepage
+\pagenumbering{arabic}
+
+\include{chapitres/01-introduction}
+\include{chapitres/02-cahier-des-charges}
+\include{chapitres/03-dimensionnement}
+\include{chapitres/04-atoll}
+\include{chapitres/05-predictions}
+\include{chapitres/06-montecarlo}
+\include{chapitres/07-optimisation}
+\include{chapitres/08-discussion}
+\include{chapitres/09-conclusion}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliographie}
+\renewcommand{\bibname}{Bibliographie}
+\bibliography{references}
+
+\appendix
+\include{chapitres/10-annexes}
+
+\end{document}

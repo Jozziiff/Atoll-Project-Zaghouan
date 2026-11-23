@@ -1,0 +1,33 @@
+# environment / caches
+.venv/
+__pycache__/
+*.pyc
+
+# raw downloads (174 MB, re-downloadable: see 03-cartes/README.md); keep only the provenance notes
+03-cartes/raw/*
+!03-cartes/raw/s2cloudless/
+03-cartes/raw/s2cloudless/*
+!03-cartes/raw/s2cloudless/SOURCE.txt
+
+# reference documents (course, regulator reports, vendor screenshots): not ours to republish
+ref/
+03-cartes/preview/google-maps-photo.png
+
+# Atoll lock / temp files
+*.ATL.lock
+*.tmp
+*~
+
+# LaTeX build files (the report PDF is 06-rapport/Rapport_LTE_Zaghouan.pdf)
+06-rapport/*.aux
+06-rapport/*.log
+06-rapport/*.out
+06-rapport/*.toc
+06-rapport/*.lof
+06-rapport/*.lot
+06-rapport/*.bbl
+06-rapport/*.blg
+06-rapport/*.fls
+06-rapport/*.fdb_latexmk
+06-rapport/chapitres/*.aux
+06-rapport/rapport.pdf

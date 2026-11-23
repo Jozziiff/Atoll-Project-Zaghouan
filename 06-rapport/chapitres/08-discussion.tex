@@ -1,0 +1,84 @@
+\chapter{Étape 1 contre Étape 2 : discussion critique}
+\label{ch-disc}
+
+\section{Ce que la simulation confirme et ce qu'elle corrige}
+
+\begin{table}[H]
+\centering
+\caption{Étape 1 et Étape 2 comparées.}
+\label{tab-compare}
+\begin{tabularx}{\textwidth}{@{}lLLl@{}}
+\toprule
+\thead{Grandeur} & \thead{Étape 1 (analytique)} & \thead{Étape 2 (Atoll)} & \thead{Verdict} \\
+\midrule
+Nombre de sites & 21 & 21, positions différentes ($-$R02, +R11, +R12) & confirmé \\
+Couverture urbaine indoor & objectif \SI{95}{\percent} & \SI{99,7}{\percent} & atteint \\
+Couverture rurale outdoor & objectif \SI{95}{\percent} & \SI{94,3}{\percent} de la surface, \SI{97,9}{\percent} de la population & $-0{,}7$ pt \\
+Liaison limitante & montante, \SI{2}{\deci\bel} sous la descendante & DCFI UL insensible à la charge : limite de puissance du terminal & confirmé \\
+Capacité & 5 sites suffiraient dans le centre & aucune saturation, même à \num{1000} utilisateurs & confirmé \\
+Interférence ($K = 1$) & \SI{8,4}{\percent} de la cellule idéale sous \SI{-1}{\deci\bel} & \SI{21}{\percent} de la ville sous \SI{-1}{\deci\bel} avec la charge simulée & optimiste \\
+Forme des cellules & cercles réguliers de \SI{0,64}{\kilo\metre} et \SI{2,06}{\kilo\metre} & ombres du relief au sud-ouest et au pied est & relief ignoré \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+La simulation confirme le nombre de sites, la liaison limitante et la conclusion sur la capacité : le calcul analytique a donné le bon ordre de grandeur. Quatre points changent.
+
+\begin{itemize}
+  \item Les positions. La formule de Hata ne voit pas le relief ; Atoll, avec la diffraction, calcule l'obstruction de la crête. Deux sites ont été ajoutés à l'intérieur des ombres du massif, et un site de la grille régulière s'est révélé inutile.
+  \item L'interférence. L'hexagone idéal suppose des voisins réguliers sur un terrain plat. Le réseau réel a des sites perchés qui débordent loin dans la plaine, et Atoll applique la marge d'effet de masque aussi au C/(I+N). Le DL en ville reste ainsi à \SI{79}{\percent} de la surface au lieu de \SI{95}{\percent} ; sur ce point, notre calcul de l'Étape 1 était optimiste.
+  \item La charge. Les prédictions par défaut supposent toutes les cellules chargées à \SI{100}{\percent}, alors que la charge simulée est de \SIrange{4}{31}{\percent}. Une même carte peut paraître très mauvaise ou acceptable selon cette hypothèse, qu'il faut donc toujours préciser.
+  \item Le bord de cellule en UL. Dans l'Étape 1, le seuil de \SI{-120}{\dBm} et le débit UL de \SI{128}{\kbps} décrivent le même point. Dans Atoll, la surface couverte en outdoor (\SI{73,8}{\kilo\metre\squared}) dépasse la surface où l'UL atteint \SI{128}{\kbps} (\SI{48,6}{\kilo\metre\squared}). Les surcoûts et le taux d'erreur appliqués par Atoll pourraient exiger un troisième RB en bord de cellule, soit $10\log_{10}(3/2) \approx \SI{1,8}{\deci\bel}$ de moins par RB ; nous ne l'avons pas vérifié.
+\end{itemize}
+
+\section{Les notions du cours dans le projet}
+\label{sec-cours}
+
+Le \cref{tab-cours} reprend les notions du cours~\cite{afif2026cours} utilisées dans ce rapport, la façon dont nous les avons appliquées au LTE et le résultat obtenu.
+
+\begin{table}[H]
+\centering
+\caption{Notions du cours et leur application.}
+\label{tab-cours}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}L@{}}
+\toprule
+\thead{Notion du cours} & \thead{Formule ou règle} & \thead{Application et résultat} \\
+\midrule
+Objectif selon le contexte & urbain : capacité ; rural : couverture & trois zones ; la ville reste limitée par la couverture aujourd'hui (11 sites contre 5) \\
+Bilan de liaison équilibré & bord de cellule atteint en UL et en DL & deux bilans ; UL limitante de \SI{2}{\deci\bel}, $R = \SI{0,64}{\kilo\metre}$ et \SI{2,06}{\kilo\metre} \\
+Marge de fading & 10 à \SI{15}{\deci\bel} (FDMA) & \SI{0}{\deci\bel} en LTE, déjà dans les seuils des bearers ; sinon 3,7 fois plus de sites \\
+Site tri-sectoriel & un site couvre trois cellules & 21 sites, 63 cellules ; $A_{\text{site}} = 1{,}95\,R^2$ \\
+Taille du motif & $K = i^2 + ij + j^2$ & $K = 1$ avec $(i, j) = (1, 0)$ \\
+Distance de réutilisation & $D = \sqrt{3K}\,R$, $q = D/R$ & $q = 1{,}73$ pour $K = 1$ \\
+C/I au premier anneau & $C/I = (q - 1)^{\alpha} / 6$ & $\alpha = 3{,}52$ (pente de Hata) ; \SI{-12,6}{\deci\bel} au pire cas, \SI{8,4}{\percent} de la cellule sous \SI{-1}{\deci\bel} \\
+Seuils de C/I & GSM \SI{9}{\deci\bel} : $K = 7$ ou 9 ; \SI{3}{\deci\bel} : $K = 3$ ou 4 & retrouvés par le calcul ; LTE à \SI{-1}{\deci\bel}, d'où $K = 1$ \\
+Rendement d'un canal & $\eta$ = canaux de trafic / canaux totaux & GSM 0,75 ; LTE 0,71 en DL et 0,86 en UL \\
+Capacité & $n\,\eta / (K \cdot B \cdot \pi R^2)$ & leviers utilisés : $K = 1$ et taille des cellules ; 5 sites suffisent aujourd'hui, 11 dans cinq ans \\
+Boucle de planification & prédictions, ajustement, densification & huit actions mesurées, dont deux sites ajoutés \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Limites de l'étude}
+\label{sec-limites}
+
+\begin{itemize}
+  \item Modèle non calibré. Aucune mesure terrain n'a permis d'ajuster le modèle Cost-Hata. L'incertitude de chaque pixel ($\sigma$ de 6 à \SI{8}{\deci\bel}) est bien plus grande que les 0,7 point qui manquent en campagne.
+  \item Extrapolation du modèle. Le modèle de Hata est validé à partir de \SI{1}{\kilo\metre} ; le rayon urbain de \SI{0,64}{\kilo\metre} en est une légère extrapolation.
+  \item Critère de qualité sévère. La marge d'effet de masque de \SI{86}{\percent} est appliquée aussi au C/(I+N) ; sans elle, la carte de qualité est nettement meilleure.
+  \item Ordonnanceur d'Atoll. Même à 10 utilisateurs, \SI{46}{\percent} des utilisateurs HSI n'obtiennent pas \SI{1}{\Mbps} alors qu'ils sont seuls dans leur cellule avec un bon C/I. Nous n'avons pas trouvé la règle interne qui l'explique.
+  \item Trafic modélisé. Un habitant vaut un utilisateur potentiel, et le mélange de services, de mobilités et de terminaux est une hypothèse.
+  \item Antenne. Le diagramme d'antenne utilisé est défini à \SI{2100}{\mega\hertz} ; la bibliothèque d'Atoll contient un modèle à \SI{1800}{\mega\hertz} (\ang{65}, \SI{17}{\dBi}, tilt électrique de \ang{6}) qui serait plus juste.
+  \item Objectifs non tous atteints. La campagne reste à \SI{94,3}{\percent} de la surface (\SI{97,9}{\percent} de la population) et le DL en ville à \SI{79}{\percent} de la surface.
+\end{itemize}
+
+\section{Perspectives}
+
+Les réglages d'antenne ont atteint leur limite (action 7 rejetée). Les pistes suivantes portent sur l'architecture du réseau :
+\begin{itemize}
+  \item la coordination d'interférence entre cellules (ICIC) pour les bords de cellule urbains ;
+  \item une couche à \SI{800}{\mega\hertz} sur les sites existants, qui apporterait de la portée en campagne et à l'intérieur des bâtiments, en complément du \SI{1800}{\mega\hertz} qui porte la capacité (\cref{sec-800-1800}) ;
+  \item des petites cellules dans le centre quand le trafic aura doublé, au rythme actuel de +\SI{40}{\percent} tous les deux ans ;
+  \item une campagne de mesures pour calibrer le modèle de propagation avant tout déploiement réel.
+\end{itemize}
