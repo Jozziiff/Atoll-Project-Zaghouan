@@ -665,18 +665,12 @@ svg[data-reuse] circle { transition: r .6s var(--spring); }
       <div class="hbar mt-s" style="--lab:300px;--val:90px"><div class="lb"><b>Affaiblissement maximal (MAPL)</b><small>liaison montante, urbain indoor</small></div><div class="tr"><b style="--l:0;--w:80.5%;--c:#b8431f;--i:6"></b></div><div class="vl"><b>128,8 dB</b></div></div>
     </div>
     <div style="width:470px;flex:none" class="col">
-      <div class="fx" data-a style="--i:7">
-        <div class="src">Référence · COST-231 Hata (1 500 – 2 000 MHz, ville moyenne)</div>
-        <div class="eq sm"><span class="ln">L = 46,3 + 33,9 log <span class="t" data-t="f" style="--c:#1f6485"><i>f</i></span> − 13,82 log <span class="t" data-t="hb" style="--c:#c4922a"><i>h</i><sub>b</sub></span> − a(<span class="t" data-t="hm" style="--c:#8a7556"><i>h</i><sub>m</sub></span>)</span><span class="ln">+ (44,9 − 6,55 log <span class="t" data-t="hb" style="--c:#c4922a"><i>h</i><sub>b</sub></span>) log <span class="t" data-t="d" style="--c:#b8431f"><i>d</i></span></span></div>
-        <div class="sub"><span class="t" data-t="f" style="--c:#1f6485">f = 1 720 MHz</span> (UL) · <span class="t" data-t="hb" style="--c:#c4922a">h<sub>b</sub> = 30 m</span> · <span class="t" data-t="hm" style="--c:#8a7556">h<sub>m</sub> = 1,5 m</span> → L(1 km) = 135,5 dB, pente 35,2 dB/décade</div>
-        <div class="res">L(<span class="t" data-t="d" style="--c:#b8431f">R</span>) = MAPL ⇒ <span class="t" data-t="d" style="--c:#b8431f">R</span> = 10<sup>(128,8 − 135,5) / 35,2</sup> = <b class="red">0,64 km</b></div>
-        <div class="sub">rural, outdoor&nbsp;: MAPL 146,6 dB ⇒ R = 2,06 km</div>
-      </div>
+      <p data-a style="--i:7;font-size:30px;line-height:1.35;margin:0">Rayon de cellule<br><b class="red">0,64 km</b> en ville (indoor)<br><b>2,06 km</b> en campagne (outdoor)</p>
       <p class="small mt-s" data-a style="--i:8"><b>Liaison limitante&nbsp;: montante</b>, 2 dB sous la descendante. Cours&nbsp;: la frontière de la cellule est là où le mobile le plus faible communique <b>dans les deux sens</b>.</p>
     </div>
   </div>
   <div class="chainbox mt-s" data-a style="--i:9"><svg class="chart" data-chain="1"></svg><button class="replay" type="button">Rejouer le trajet</button></div>
-  <aside class="notes">En haut&nbsp;: la somme du bilan (MAPL = PIRE + gain − sensibilité − marges = 128,8 dB). À droite&nbsp;: COST-231 Hata résolu pour d&nbsp;: quand la perte du trajet atteint le MAPL, on est au bord de la cellule, R = 0,64 km. En bas, l'animation suit <b>un seul signal montant</b> du téléphone au récepteur&nbsp;: 23 dBm au départ, −15 dB à travers le mur, puis les <b>marges de sécurité</b> (cadre pointillé)&nbsp;: ce ne sont pas des pertes physiques mais des dB gardés en réserve, 8,7 dB pour l'effet de masque (le niveau fluctue de σ = 8 dB à cause du relief et du bâti&nbsp;; avec cette réserve, 95 % de la surface passe), 2 dB pour l'interférence des cellules voisines chargées, et 0 dB pour l'évanouissement rapide (déjà compris dans les seuils SINR des bearers),, −128,8 dB de propagation sur 0,64 km, +18 dBi d'antenne, −1 dB de câble&nbsp;: il arrive à −114,4 dBm, exactement la sensibilité (bruit thermique sur 2 RB −174 + 10 log 360 kHz = −118,4 dBm, + NF 5 dB, + SINR −1 dB). Un mètre plus loin, le récepteur ne décode plus&nbsp;: c'est la définition du rayon. Cours (bilan de liaison)&nbsp;: la frontière est définie par le mobile le plus faible, dans les deux sens&nbsp;; ici c'est le sens montant qui limite.</aside>
+  <aside class="notes">En haut&nbsp;: la somme du bilan (MAPL = PIRE + gain − sensibilité − marges = 128,8 dB). À droite&nbsp;: le rayon obtenu quand la perte du trajet (modèle de Hata) atteint le MAPL&nbsp;: 0,64 km en ville, 2,06 km en campagne. En bas, l'animation suit <b>un seul signal montant</b> du téléphone au récepteur&nbsp;: 23 dBm au départ, −15 dB à travers le mur, puis les <b>marges de sécurité</b> (cadre pointillé)&nbsp;: ce ne sont pas des pertes physiques mais des dB gardés en réserve, 8,7 dB pour l'effet de masque (le niveau fluctue de σ = 8 dB à cause du relief et du bâti&nbsp;; avec cette réserve, 95 % de la surface passe), 2 dB pour l'interférence des cellules voisines chargées, et 0 dB pour l'évanouissement rapide (déjà compris dans les seuils SINR des bearers),, −128,8 dB de propagation sur 0,64 km, +18 dBi d'antenne, −1 dB de câble&nbsp;: il arrive à −114,4 dBm, exactement la sensibilité (bruit thermique sur 2 RB −174 + 10 log 360 kHz = −118,4 dBm, + NF 5 dB, + SINR −1 dB). Un mètre plus loin, le récepteur ne décode plus&nbsp;: c'est la définition du rayon. Cours (bilan de liaison)&nbsp;: la frontière est définie par le mobile le plus faible, dans les deux sens&nbsp;; ici c'est le sens montant qui limite.</aside>
 </section>
 
 <section class="slide" id="s-station" data-section="Dimensionnement" data-req="R-1 R-2 E1-2 A-3" data-steps="4">
@@ -2278,7 +2272,7 @@ window.DATA = {"reliefTex":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2
     });
     // power level along the way (dBm)
     el('line', { x1: 20, x2: W - 10, y1: Y(-114.4), y2: Y(-114.4), stroke: C.forest, 'stroke-width': 1.5, 'stroke-dasharray': '6 5' }, svg);
-    const sl = el('text', { x: 24, y: Y(-114.4) - 7, class: 'sb', style: `fill:${C.forest};font-weight:700` }, svg); sl.textContent = 'sensibilité eNB −114,4 dBm = −174 + 10 log(2 × 180 kHz) + NF 5 dB + SINR −1 dB';
+    const sl = el('text', { x: 24, y: Y(-114.4) - 7, class: 'sb', style: `fill:${C.forest};font-weight:700` }, svg); sl.textContent = 'sensibilité eNB −114,4 dBm';
     el('line', { x1: 20, x2: W - 10, y1: Y(0), y2: Y(0), stroke: C.line }, svg);
     const z = el('text', { x: W - 12, y: Y(0) - 5, class: 'sb', 'text-anchor': 'end' }, svg); z.textContent = '0 dBm';
     const S = stages;
@@ -2286,8 +2280,8 @@ window.DATA = {"reliefTex":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2
     for (let x = A0; x <= A1; x += 8) { const u = (x - A0) / (A1 - A0), L = 128.76 * Math.log10(1 + 9 * u); lp += ` L${x} ${Y(-2.7 - L)}`; }   // log-shaped, like Hata in log d
     lp += ` L${S[6].x} ${Y(-131.4)} L${S[6].x} ${Y(-113.4)} L${S[7].x} ${Y(-113.4)} L${S[7].x} ${Y(-114.4)} L${W - 10} ${Y(-114.4)}`;
     el('path', { d: lp, fill: 'none', stroke: C.terra, 'stroke-width': 3, 'stroke-linejoin': 'round', 'clip-path': 'url(#chclip)' }, svg);
-    const pv = [[20, 23, '+23 dBm'], [S[3].x + 70, -2.7, '−2,7 dBm'], [A1, -131.4, '−131,4 dBm'], [S[6].x + 8, -113.4, '−113,4 dBm']];
-    const pl = pv.map(([x, v, t]) => { const e = el('text', { x: x + 6, y: Y(v) + (v < -120 ? 16 : -6), class: 'sb', style: `fill:${C.ink};font-weight:700;opacity:0` }, svg); e.textContent = t; e.dataset.x = x; return e; });
+    const pv = [[20, 23, '+23 dBm'], [S[3].x + 70, -2.7, '−2,7 dBm'], [A1, -131.4, '−131,4 dBm'], [S[6].x + 8, -113.4, '−113,4 dBm'], [S[7].x + 8, -114.4, '−114,4 dBm = sensibilité', 18]];
+    const pl = pv.map(([x, v, t, dy]) => { const e = el('text', { x: x + 6, y: Y(v) + (dy ?? (v < -120 ? 16 : -6)), class: 'sb', style: `fill:${C.ink};font-weight:700;opacity:0` }, svg); e.textContent = t; e.dataset.x = x; return e; });
     const pulse = el('circle', { class: 'pulse', r: 7, cx: S[0].x, cy: yI }, svg);
     const len = wire.getTotalLength();
     let t0 = 0, raf = 0;

@@ -990,7 +990,7 @@
     });
     // power level along the way (dBm)
     el('line', { x1: 20, x2: W - 10, y1: Y(-114.4), y2: Y(-114.4), stroke: C.forest, 'stroke-width': 1.5, 'stroke-dasharray': '6 5' }, svg);
-    const sl = el('text', { x: 24, y: Y(-114.4) - 7, class: 'sb', style: `fill:${C.forest};font-weight:700` }, svg); sl.textContent = 'sensibilité eNB −114,4 dBm = −174 + 10 log(2 × 180 kHz) + NF 5 dB + SINR −1 dB';
+    const sl = el('text', { x: 24, y: Y(-114.4) - 7, class: 'sb', style: `fill:${C.forest};font-weight:700` }, svg); sl.textContent = 'sensibilité eNB −114,4 dBm';
     el('line', { x1: 20, x2: W - 10, y1: Y(0), y2: Y(0), stroke: C.line }, svg);
     const z = el('text', { x: W - 12, y: Y(0) - 5, class: 'sb', 'text-anchor': 'end' }, svg); z.textContent = '0 dBm';
     const S = stages;
@@ -998,8 +998,8 @@
     for (let x = A0; x <= A1; x += 8) { const u = (x - A0) / (A1 - A0), L = 128.76 * Math.log10(1 + 9 * u); lp += ` L${x} ${Y(-2.7 - L)}`; }   // log-shaped, like Hata in log d
     lp += ` L${S[6].x} ${Y(-131.4)} L${S[6].x} ${Y(-113.4)} L${S[7].x} ${Y(-113.4)} L${S[7].x} ${Y(-114.4)} L${W - 10} ${Y(-114.4)}`;
     el('path', { d: lp, fill: 'none', stroke: C.terra, 'stroke-width': 3, 'stroke-linejoin': 'round', 'clip-path': 'url(#chclip)' }, svg);
-    const pv = [[20, 23, '+23 dBm'], [S[3].x + 70, -2.7, '−2,7 dBm'], [A1, -131.4, '−131,4 dBm'], [S[6].x + 8, -113.4, '−113,4 dBm']];
-    const pl = pv.map(([x, v, t]) => { const e = el('text', { x: x + 6, y: Y(v) + (v < -120 ? 16 : -6), class: 'sb', style: `fill:${C.ink};font-weight:700;opacity:0` }, svg); e.textContent = t; e.dataset.x = x; return e; });
+    const pv = [[20, 23, '+23 dBm'], [S[3].x + 70, -2.7, '−2,7 dBm'], [A1, -131.4, '−131,4 dBm'], [S[6].x + 8, -113.4, '−113,4 dBm'], [S[7].x + 8, -114.4, '−114,4 dBm = sensibilité', 18]];
+    const pl = pv.map(([x, v, t, dy]) => { const e = el('text', { x: x + 6, y: Y(v) + (dy ?? (v < -120 ? 16 : -6)), class: 'sb', style: `fill:${C.ink};font-weight:700;opacity:0` }, svg); e.textContent = t; e.dataset.x = x; return e; });
     const pulse = el('circle', { class: 'pulse', r: 7, cx: S[0].x, cy: yI }, svg);
     const len = wire.getTotalLength();
     let t0 = 0, raf = 0;
