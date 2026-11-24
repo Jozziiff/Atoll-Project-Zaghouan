@@ -212,49 +212,49 @@
 
 <section class="slide" id="s-capa" data-section="Dimensionnement" data-req="U-1 U-2 U-3 U-4 U-5 E1-4">
   <h2 data-a style="--i:0;max-width:none">Capacité&nbsp;: la ville a besoin de 5 sites, la couverture en exige 11</h2>
-  <h3 class="small mt" data-a style="--i:1">Demande à l'heure chargée, centre urbain</h3>
+  <h3 class="small mt" data-a style="--i:1">1 · Combien de trafic la ville demande-t-elle à l'heure la plus chargée&nbsp;?</h3>
   <div class="flow mt-s" data-step="1">
     <div class="node "><div class="fig"><span data-count="13590" data-dec="0">13 590</span></div><div class="k">habitants</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-    <div class="node "><div class="fig"><span data-count="3560" data-dec="0" data-delay="700">3 560</span></div><div class="k">abonnés LTE · × 93,9 % pénétration × 30 % part de marché × 93 % LTE</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-    <div class="node "><div class="fig">63,3<span class="u">kbps</span></div><div class="k">DL par abonné · 9,5 Go/mois, 10 % à l'heure chargée, 90 % en DL</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-    <div class="node key"><div class="fig"><span data-count="225" data-dec="0">225</span><span class="u">Mbps</span></div><div class="k"><b>demande DL totale</b></div></div>
+    <div class="node "><div class="fig"><span data-count="3560" data-dec="0" data-delay="700">3 560</span></div><div class="k">nos clients 4G<br>(données INTT, 30 % de part de marché)</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node "><div class="fig">63,3<span class="u">kbps</span></div><div class="k">par client à l'heure chargée<br>(9,5 Go par mois)</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node key"><div class="fig"><span data-count="225" data-dec="0">225</span><span class="u">Mbps</span></div><div class="k"><b>à servir en ville</b></div></div>
   </div>
-  <h3 class="small mt" data-step="2">Offre d'une cellule (traduction GSM → LTE)</h3>
+  <h3 class="small mt" data-step="2">2 · Combien de clients une cellule peut-elle servir&nbsp;?</h3>
   <div class="flow mt-s" data-step="2">
-    <div class="node "><div class="fig">20<span class="u">MHz</span></div><div class="k">U-1 · fréquences par cellule&nbsp;: 100 RB</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-    <div class="node "><div class="fig">120 / 168</div><div class="k">U-2 · RE utiles par RB en DL (− signalisation)</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node "><div class="fig">100<span class="u">RB</span></div><div class="k">toute la porteuse de 20 MHz dans chaque cellule</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="node "><div class="fig">120 / 168</div><div class="k">part des ressources pour les données<br>(le reste&nbsp;: signalisation)</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     <div class="node "><div class="fig">21,6<span class="u">Mbps</span></div><div class="k">débit moyen d'une cellule</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-    <div class="node key2"><div class="fig">272</div><div class="k">U-3 · abonnés par cellule (charge 80 %)</div></div>
+    <div class="node key2"><div class="fig">272</div><div class="k">clients par cellule<br>(cellule remplie à 80 % au plus)</div></div>
   </div>
   <div class="row mt" data-step="3" style="align-items:center;gap:40px">
-    <div class="flow" style="flex:none;width:520px"><div class="node "><div class="fig">14</div><div class="k">U-4 · cellules = 3 560 / 272</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node key2"><div class="fig">5</div><div class="k"><b>U-5 · sites</b> (÷ 3 secteurs)</div></div></div>
+    <div class="flow" style="flex:none;width:520px"><div class="node "><div class="fig">14</div><div class="k">cellules<br>= 3 560 ÷ 272</div></div><div class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node key2"><div class="fig">5</div><div class="k"><b>sites</b><br>(3 cellules par site)</div></div></div>
     <div class="grow">
       <div class="hbar" style="--lab:150px;--val:80px"><div class="lb">capacité</div><div class="tr"><b style="--w:45.5%;--c:#4f7a45;--i:0"></b></div><div class="vl">5 sites</div></div>
       <div class="hbar" style="--lab:150px;--val:80px"><div class="lb">couverture</div><div class="tr"><b style="--w:100%;--c:#b8431f;--i:1"></b></div><div class="vl red">11 sites</div></div>
-      <p class="small mt-s">Retenu&nbsp;: max(couverture 11, capacité 5) = <b>11 sites urbains</b>. Limité par la couverture aujourd'hui, par la capacité demain.</p>
+      <p class="small mt-s">3 · On garde le plus grand des deux&nbsp;: <b>11 sites en ville</b>. Aujourd'hui, c'est la couverture qui décide, pas le trafic.</p>
     </div>
   </div>
   <aside class="notes">Trois temps avec →&nbsp;: la demande, l'offre d'une cellule, le résultat. Le sujet est écrit en logique GSM (Erlang B, 2 canaux de signalisation). On l'a <b>traduit</b>&nbsp;: les « canaux » deviennent des ressources radio (RE), la signalisation devient PDCCH + signaux de référence (48 des 168 RE d'un RB en DL). Le débit d'une cellule (21,6 Mbps) vient de la formule C/I du cours appliquée en chaque point de l'hexagone, convertie en bearer Atoll. La charge maximale de 80 % joue le rôle du taux de blocage d'Erlang B.</aside>
 </section>
 
 <section class="slide" id="s-reuse" data-section="Dimensionnement" data-req="E1-7 E1-8 R-3 R-4 R-5">
-  <h2 data-a style="--i:0;max-width:none">Réutilisation&nbsp;: le pire cas dit K = 3, la cellule réelle dit K = 1</h2>
+  <h2 data-a style="--i:0;max-width:none">Réutilisation&nbsp;: toutes les cellules sur les mêmes 20 MHz (K = 1)</h2>
   <div class="row mt">
     <div class="grow col">
-      <p class="small" data-a style="--i:1">Formules du cours&nbsp;: D = √(3K)·R, q = D/R, C/I = (q − 1)^α / 6, α = 3,52</p>
+      <p class="small" data-a style="--i:1"><b>K</b> = nombre de cellules qui se partagent les 20 MHz. Plus K est grand, plus les voisins sur la même fréquence sont loin (moins d'interférence), mais moins chaque cellule a de spectre. Formule du cours&nbsp;: C/I = (q − 1)<sup>3,52</sup> / 6, avec q = √(3K).</p>
       <table class="t mt-s">
-        <thead><tr><th>K</th><th class="r">q</th><th class="r">C/I pire cas</th><th>GSM ≥ 9 dB</th><th>LTE ≥ −1 dB</th><th class="r">MHz par cellule</th></tr></thead>
+        <thead><tr><th>K</th><th class="r">C/I au pire cas</th><th>Assez pour le LTE (≥ −1 dB)&nbsp;?</th><th class="r">Ressources par cellule</th></tr></thead>
         <tbody>
-          <tr style="--r:0" data-k="1"><td><b>1</b></td><td class="r">1,73</td><td class="r red">−12,6 dB</td><td>non</td><td>non</td><td class="r"><b>20,0</b></td></tr>
-          <tr style="--r:1" data-k="3"><td>3</td><td class="r">3,00</td><td class="r">2,8 dB</td><td>non</td><td>oui</td><td class="r">6,7</td></tr>
-          <tr style="--r:2" data-k="4"><td>4</td><td class="r">3,46</td><td class="r">6,0 dB</td><td>non</td><td>oui</td><td class="r">5,0</td></tr>
-          <tr style="--r:3" data-k="7"><td>7</td><td class="r">4,58</td><td class="r">11,7 dB</td><td>oui</td><td>oui</td><td class="r">2,9</td></tr>
-          <tr style="--r:4" data-k="9"><td>9</td><td class="r">5,20</td><td class="r">14,2 dB</td><td>oui</td><td>oui</td><td class="r">2,2</td></tr>
+          <tr style="--r:0" data-k="1"><td><b>1</b></td><td class="r red">−12,6 dB</td><td>non, au pire cas</td><td class="r"><b>20 MHz · 100 RB</b></td></tr>
+          <tr style="--r:1" data-k="3"><td>3</td><td class="r">2,8 dB</td><td>oui</td><td class="r">5 MHz · 25 RB</td></tr>
+          <tr style="--r:2" data-k="4"><td>4</td><td class="r">6,0 dB</td><td>oui</td><td class="r">5 MHz · 25 RB</td></tr>
+          <tr style="--r:3" data-k="7"><td>7</td><td class="r">11,7 dB</td><td>oui (et GSM ≥ 9 dB)</td><td class="r">1,4 MHz · 6 RB</td></tr>
+          <tr style="--r:4" data-k="9"><td>9</td><td class="r">14,2 dB</td><td>oui (et GSM ≥ 9 dB)</td><td class="r">1,4 MHz · 6 RB</td></tr>
         </tbody>
       </table>
       <div class="row mt" style="gap:40px">
-        <div class="stat" data-a style="--i:3"><div class="k">C/I calculé en chaque point de la cellule</div><div class="fig m"><span data-count="8.4">8,4</span><span class="u">% sous −1 dB</span></div><div class="d">médiane 5,4 dB&nbsp;: le pire cas est rare</div></div>
-        <div class="stat grow" data-a style="--i:4"><div class="k">Choix et plan (R-4, R-5)</div><p class="small"><b>K = 1</b>&nbsp;: 3 fois plus de spectre par cellule. 1 porteuse 20 MHz (EARFCN 1300) partout&nbsp;; on planifie les <b>PCI</b>&nbsp;: site s → 3s, 3s+1, 3s+2.</p></div>
+        <div class="stat" data-a style="--i:3"><div class="k">Mais en calculant chaque point de la cellule</div><div class="fig m"><span data-count="8.4">8,4</span><span class="u">% sous −1 dB</span></div><div class="d">le pire cas (bord + 6 voisins au plus près) est rare</div></div>
+        <div class="stat grow" data-a style="--i:4"><div class="k">Notre choix</div><p class="small"><b>K = 1</b>&nbsp;: 100 RB par cellule au lieu de 25. Le LTE adapte son codage au signal, il accepte un C/I faible au bord. Plan&nbsp;: une porteuse de 20 MHz partout, et des PCI différents par secteur (3s, 3s+1, 3s+2).</p></div>
       </div>
     </div>
     <div class="col" data-a style="width:500px;--i:2">
@@ -268,16 +268,16 @@
 
 <section class="slide" id="s-nominal" data-section="Dimensionnement" data-req="R-2 A-3">
   <div class="row">
-    <div class="map" style="--size:680px" data-sites="init" data-labels="1" data-a></div>
+    <div class="map" style="--size:680px" data-sites="init" data-labels="1" data-hex="1" data-a></div>
     <div class="grow col">
       <h2 data-a style="--i:0">Le plan nominal&nbsp;: 20 sites sur une grille hexagonale</h2>
-      <p class="lead" data-a style="--i:1">Distance entre sites 1,5·R&nbsp;: 0,96 km en ville, 3,1 km en campagne. Aucun site sur le massif.</p>
+      <p class="lead" data-a style="--i:1">On pave la zone d'hexagones, un site au centre de chacun. Distance entre sites 1,5·R&nbsp;: petits hexagones de 0,96 km en ville, grands de 3,1 km en campagne. Un hexagone sur le massif ne reçoit pas de site.</p>
       <div class="row mt" style="gap:40px">
         <div class="stat" data-a style="--i:2"><div class="k">Sites urbains</div><div class="fig l slate">10</div><div class="d">formule&nbsp;: 11 (effets de bord de la grille)</div></div>
         <div class="stat" data-a style="--i:3"><div class="k">Sites ruraux</div><div class="fig l red">10</div><div class="d">R01 et R02 tombent près de U01 et U02</div></div>
       </div>
       <p class="small mt" data-a style="--i:4">On garde volontairement la grille brute comme réseau initial&nbsp;: c'est elle que l'on optimisera, avec un avant / après mesuré.</p>
-      <div class="legend mt" data-a style="--i:5"><span><i class="dot" style="background:#1f6485"></i>site urbain</span><span><i class="dot" style="background:#b8431f"></i>site rural</span><span>fond&nbsp;: occupation du sol réelle</span></div>
+      <div class="legend mt" data-a style="--i:5"><span><i class="dot" style="background:#1f6485"></i>site urbain</span><span><i class="dot" style="background:#b8431f"></i>site rural</span><span>hexagone plein&nbsp;: un site · pointillé&nbsp;: grille rurale</span></div>
     </div>
   </div>
   <aside class="notes">Les positions sont posées automatiquement par le script sur une grille hexagonale, puis importées telles quelles dans Atoll (copier-coller du fichier de coordonnées). On n'a <b>rien corrigé à la main</b>&nbsp;: R01 et R02 sont trop proches des sites urbains et R07 tombe sur le flanc du massif. Ce sont exactement les défauts que l'optimisation va corriger, avec des chiffres.</aside>

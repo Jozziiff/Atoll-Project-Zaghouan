@@ -151,6 +151,20 @@
       t.textContent = label;
     });
   }
+  // nominal hexagonal grid (same lattice as calc.py): ISD = 1.5 R, urban 963 m, rural 3 090 m; 1 map unit = 100 m
+  function hexGrid(svg) {
+    const hex = (cx, cy, r) => Array.from({ length: 6 }, (_, k) => { const a = (-90 + 60 * k) * Math.PI / 180; return `${(cx + r * Math.cos(a)).toFixed(2)},${(cy + r * Math.sin(a)).toFixed(2)}`; }).join(' ');
+    const lat = isd => { const pts = []; for (let j = 0; j * isd * Math.sqrt(3) / 2 < 100 + isd; j++) for (let i = -1; i * isd < 100 + isd; i++)
+      pts.push([isd / 2 + i * isd + (j % 2 ? isd / 2 : 0), isd / 2 + j * isd * Math.sqrt(3) / 2]); return pts; };
+    const ISD_U = 9.63, ISD_R = 30.9;
+    const defs = el('defs', {}, svg), cp = el('clipPath', { id: 'hexurb' }, defs); el('path', { d: D.urban }, cp);
+    const g = el('g', { class: 'hexgrid' }, svg);
+    lat(ISD_R).forEach(([x, y]) => el('polygon', { points: hex(x, y, ISD_R / Math.sqrt(3)), fill: 'none', stroke: '#b8431f', 'stroke-width': .35, 'stroke-dasharray': '1.2 .8', opacity: .75 }, g));
+    const gu = el('g', { 'clip-path': 'url(#hexurb)' }, g);
+    lat(ISD_U).forEach(([x, y]) => el('polygon', { points: hex(x, y, ISD_U / Math.sqrt(3)), fill: 'none', stroke: '#1f6485', 'stroke-width': .3, opacity: .8 }, gu));
+    D.sites.init.forEach(s => { const u = s.n[0] === 'U', r = (u ? ISD_U : ISD_R) / Math.sqrt(3);
+      el('polygon', { points: hex(s.x, s.y, r), fill: u ? 'rgba(31,100,133,.22)' : 'rgba(184,67,31,.12)', stroke: u ? '#1f6485' : '#b8431f', 'stroke-width': u ? .45 : .55 }, g); });
+  }
   function buildMap(m) {
     const first = m.firstChild;
     const add = n => m.insertBefore(n, first);
@@ -191,6 +205,7 @@
       el('path', { class: 'zonefill', 'data-z': 'massif', d: D.massifPath, fill: 'rgba(46,91,60,.42)' }, svg);
       el('path', { class: 'zonefill', 'data-z': 'urban', d: D.urban, fill: 'rgba(31,100,133,.45)' }, svg);
     }
+    if (m.dataset.hex) hexGrid(svg);
     if (!m.classList.contains('compare')) { contextLines(svg, m); siteLayer(svg, m.dataset.sites, m); }
     callouts(svg, m);
     if (m.dataset.chrome !== '0') {
@@ -773,7 +788,7 @@
       $$('tr[data-k]', slide).forEach(tr => tr.classList.toggle('lit', tr.dataset.k === String(K)));
       const RV = { 1: ['1,73', '0,333', '0,056', '−12,6'], 3: ['3,00', '11,49', '1,92', '2,8'], 4: ['3,46', '23,97', '3,99', '6,0'], 7: ['4,58', '89,57', '14,9', '11,7'], 9: ['5,20', '156,3', '26,1', '14,2'] }[K];
       const sub = $('[data-reuse-sub]', slide); if (sub) sub.innerHTML = `<b>K = ${K}</b> : q = √(3·${K}) = <b>${RV[0]}</b> ; (q − 1)<sup>3,52</sup> = ${RV[1]} ; C/I = ${RV[1]} / 6 = ${RV[2]} → <b>${RV[3]} dB</b> (α = 3,52, pente de Hata)`;
-      const o = $('[data-reuse-out]', slide); if (o) o.innerHTML = K === 1 ? '<b>K = 1</b> : toutes les cellules utilisent les 20 MHz ; les voisines immédiates sont co-canal.' : `<b>K = ${K}</b> : les cellules co-canal (terre cuite) sont à D = √(3K)·R = ${fr(Math.sqrt(3 * K), 2)}·R ; chaque cellule n'a que 20/${K} MHz.`;
+      const o = $('[data-reuse-out]', slide); if (o) o.innerHTML = K === 1 ? '<b>K = 1</b> : chaque cellule a les 20 MHz. Ses voisines utilisent la même fréquence : c\'est la source d\'interférence.' : `<b>K = ${K}</b> : ${K} cellules se partagent les 20 MHz. Les cellules sur la même fréquence (terre cuite) sont plus loin, donc moins d'interférence, mais chaque cellule a beaucoup moins de spectre.`;
     };
     const box = $('.seg[data-reuse-seg]', slide);
     if (box) seg(box, v => draw(+v)).pick('1'); else draw(1);
